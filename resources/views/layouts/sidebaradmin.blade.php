@@ -55,18 +55,31 @@
       <div id="collapseBerita" class="collapse" aria-labelledby="headingKI" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Daftar Potensi:</h6>
-          <a class="collapse-item" href="/admin/news/create" ><i class="fas fa-fw fa-school"></i>   Sekolah</a>
+          <a class="collapse-item" href="{{ route('admin-sekolah-home') }}" ><i class="fas fa-fw fa-school"></i>   Sekolah</a>
           <a class="collapse-item" href="/admin/news"><i class="fas fa-fw fa-place-of-worship"></i>  Tempat Ibadah</a>
           <a class="collapse-item" href="/admin/news"><i class="fas fa-fw fa-store"></i>  Pertokoan</a>
         </div>
       </div>
     </li>
 
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-map-marked-alt"></i>
-            <span>Map</span></a>
-    </li> --}}
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Tentang SIG Desa
+    </div>
+    <!-- Nav Item - Tables -->
+    <li class="nav-item" id="desa">
+        <a class="nav-link" href="{{ route('admin-desa-home') }}">
+            <i class="fas fa-users-cog"></i>
+            <span>Admin</span></a>
+    </li>
+    <li class="nav-item" id="desa">
+      <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">
+          <i class="fas fa-info-circle"></i>
+          <span>Tentang</span></a>
+  </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

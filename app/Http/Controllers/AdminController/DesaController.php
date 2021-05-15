@@ -18,12 +18,12 @@ class DesaController extends Controller
     public function index()
     {
         $desa = Desa::orderby('created_at', 'desc')->get();
-        return view('desa.desa', compact('desa'));
+        return view('admin.desa.desa', compact('desa'));
     }
 
     public function create()
     {
-        return view('desa.create');
+        return view('admin.desa.create');
     }
 
     public function store(Request $request)
@@ -47,7 +47,7 @@ class DesaController extends Controller
 
     public function edit($id){
         $desa = Desa::find($id);
-        return view('desa.edit', compact('desa'));
+        return view('admin.desa.edit', compact('desa'));
     }
 
     public function update($id, Request $request)
@@ -77,6 +77,6 @@ class DesaController extends Controller
 
     public function show($id){
         $desa = Desa::find($id);
-        return view('desa.show', compact('desa'));
+        return view('admin.desa.show', compact('desa'));
     }
 }

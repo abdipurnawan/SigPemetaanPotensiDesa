@@ -40,11 +40,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/desa/{id}/delete', 'AdminController\DesaController@destroy')->name('admin-desa-delete');
     Route::get('/desa/{id}/show', 'AdminController\DesaController@show')->name('admin-desa-show');
 
-    //Agama
-    Route::get('/agama/home', 'AgamaController@index')->name('agama.home');
-    Route::post('/agama/store', 'AgamaController@store')->name('agama.store');
-    Route::get('/agama/edit/{id}', 'AgamaController@edit')->name('agama.edit');
-    Route::post('/agama/update/{id}', 'AgamaController@update')->name('agama.update');
-    Route::post('/agama/delete', 'AgamaController@delete')->name('agama.delete');
+    //Sekolah
+    Route::get('/sekolah', 'AdminController\SekolahController@index')->name('admin-sekolah-home');
+    Route::get('/sekolah/create', 'AdminController\SekolahController@create')->name('admin-sekolah-create');
+    Route::post('/sekolah/store', 'AdminController\SekolahController@store')->name('admin-sekolah-store');
+    Route::get('/sekolah/{id}/edit', 'AdminController\SekolahController@edit')->name('admin-sekolah-edit');
+    Route::post('/sekolah/{id}/store', 'AdminController\SekolahController@update')->name('admin-sekolah-update');
+    Route::get('/sekolah/{id}/delete', 'AdminController\SekolahController@destroy')->name('admin-sekolah-delete');
+    Route::get('/sekolah/{id}/show', 'AdminController\SekolahController@show')->name('admin-sekolah-show');
 });
 

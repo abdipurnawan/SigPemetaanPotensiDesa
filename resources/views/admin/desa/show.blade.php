@@ -3,20 +3,6 @@
 @push('css')
     <style>
         #mapid { height: 600px; }
-        .btn-float {
-            position: fixed;
-            bottom: -4px;
-            right: 10px;
-            margin-bottom: 40px;
-            margin-right: 20px;
-        }
-        .btn-cricle {
-            border-radius: 50%;
-            color: #fff;
-            display: inline-block;
-            text-align: center;
-            padding: 0.375rem;
-        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
@@ -63,21 +49,6 @@
                             <label for="">Nama Desa</label>
                             <input type="text" class="form-control" name="nama_desa" value="{{$desa->nama_desa}}" readonly>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="">Koordinat Desa</label>
-                            <div class="input-group mb-2 mr-sm-2">
-                                <input type="text" readonly class="form-control" id="marker-desa" placeholder="Koordinat Desa">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <a href="javascript:void(0)" id="set-koordinat"><i class="fas fa-map-marker-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        {{-- <div class="form-group">
-                            <label for="">Zoom</label>
-                            <input type="number" readonly class="form-control" name="zoom" value="" min="1" id="zoom">
-                        </div> --}}
                         <div class="form-group">
                             <label for="">Warna Batas</label>
                             <input type="color" class="form-control" name="warna_batas" id="color-picker" value="{{$desa->warna_batas}}" readonly>
@@ -86,15 +57,12 @@
                             <label for="">Batas Desa</label>
                             <textarea name="batas_desa" id="batas-desa" cols="30" rows="4" readonly class="form-control">{{$desa->batas_desa}}</textarea>
                         </div>
-                        <span><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></span>
+                        <a style="margin-right:7px" href="/admin/desa"><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    {{-- <div class="btn-float">
-        <button class="btn rounded-pill btn-primary btn-lg"><i class="fas fa-plus"></i> Tambah</button>
-    </div> --}}
 @endsection
 @push('js')
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -146,7 +114,7 @@
         }).addTo(mymap);
 
         $(document).ready(function(){
-            $('#desa').addClass('active');
+            
         });
     </script>
 @endpush
