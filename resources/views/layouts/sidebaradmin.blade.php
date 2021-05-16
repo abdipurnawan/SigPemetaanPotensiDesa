@@ -56,8 +56,8 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Daftar Potensi:</h6>
           <a class="collapse-item" href="{{ route('admin-sekolah-home') }}" ><i class="fas fa-fw fa-school"></i>   Sekolah</a>
-          <a class="collapse-item" href="/admin/news"><i class="fas fa-fw fa-place-of-worship"></i>  Tempat Ibadah</a>
-          <a class="collapse-item" href="/admin/news"><i class="fas fa-fw fa-store"></i>  Pertokoan</a>
+          <a class="collapse-item" href="{{ route('admin-ibadah-home') }}"><i class="fas fa-fw fa-place-of-worship"></i>  Tempat Ibadah</a>
+          <a class="collapse-item" href="{{ route('admin-wisata-home') }}"><i class="fas fa-fw fa-umbrella-beach"></i>  Tempat Wisata</a>
         </div>
       </div>
     </li>

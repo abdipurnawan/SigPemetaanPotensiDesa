@@ -5,6 +5,9 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Desa;
+use App\Sekolah;
+use App\Ibadah;
+use App\Wisata;
 
 class DashboardController extends Controller
 {
@@ -15,7 +18,11 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
+        $jumlah_desa = Desa::where('deleted_at', NULL)->count();
+        $jumlah_sekolah = Sekolah::where('deleted_at', NULL)->count();
+        $jumlah_ibadah = Ibadah::where('deleted_at', NULL)->count();
+        $jumlah_wisata = Wisata::where('deleted_at', NULL)->count();
         $desas = Desa::get();
-        return view('admin.dashboard', compact('desas'));
+        return view('admin.dashboard', compact('desas', 'jumlah_desa', 'jumlah_sekolah', 'jumlah_ibadah', 'jumlah_wisata'));
     }
 }

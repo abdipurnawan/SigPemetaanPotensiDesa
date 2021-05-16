@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Tambah Sekolah')
+@section('title', 'Tambah Tempat Wisata')
 @push('css')
     <style>
         #mapid { height: 600px; }
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 @endpush
 @section('content')
-    <h1 class="h3 mb-2 text-gray-800">Tambah Sekolah</h1>
+    <h1 class="h3 mb-2 text-gray-800">Tambah Tempat Wisata</h1>
     @if (count($errors)>0)
     <div class="row">
       <div class="col-sm-12 alert alert-danger alert-dismissible fade show" role="alert">
@@ -40,14 +40,14 @@
         <div class="col-md-4 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold text-primary">Data Sekolah</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Data Tempat Wisata</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin-sekolah-store') }}" id="form-desa" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin-wisata-store') }}" id="form-desa" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="">Nama Sekolah</label>
-                            <input type="text" class="form-control" name="nama_sekolah" placeholder="Masukkan nama sekolah">
+                            <label for="">Nama Tempat Wisata</label>
+                            <input type="text" class="form-control" name="nama_tempat_wisata" placeholder="Masukkan nama tempat wisata">
                         </div>
                         <div class="form-group form-group mt-3">
                             <label for="kategori">Desa</label>
@@ -58,22 +58,10 @@
                                 @endforeach
                             </select>  
                         </div>
-                        <div class="form-group form-group mt-3">
-                            <label for="kategori">Jenis Sekolah</label>
-                            <select class="form-control" data-live-search="true" id="jenis" rows="3" name="jenis" required>
-                              <option value="">Pilih Jenis Sekolah</option>
-                              <option value="PAUD">PAUD</option>
-                              <option value="TK">Taman Kanak-kanak</option>
-                              <option value="SD">Sekolah Dasar</option>
-                              <option value="SMP">Sekolah Menengah Pertama</option>
-                              <option value="SMA">Sekolah Menengah Atas</option>
-                              <option value="Universitas">Perguruan Tinggi</option>
-                            </select>  
-                        </div>
                         <div class="form-group">
-                            <label for="">Lokasi Sekolah</label>
+                            <label for="">Lokasi Tempat Wisata</label>
                             <div class="input-group mb-2 mr-sm-2">
-                                <input type="text" readonly class="form-control" id="marker-sekolah" placeholder="Masukkan Lokasi Sekolah">
+                                <input type="text" readonly class="form-control" id="marker-sekolah" placeholder="Masukkan Lokasi Tempat Wisata">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <a href="javascript:void(0)" id="set-koordinat"><i class="fas fa-map-marker-alt"></i></a>
@@ -91,14 +79,14 @@
                         </div> 
                         <div class="form-group">
                             <label for="">Alamat</label>
-                            <input type="text" class="form-control" name="alamat" placeholder="Masukkan alamat sekolah">
-                        </div>
+                            <input type="text" class="form-control" name="alamat" placeholder="Masukkan alamat tempat wisata">
+                        </div>       
                         <div class="form-group">
-                            <label for="">Telepon</label>
-                            <input type="text" class="form-control" name="telepon" placeholder="Masukkan telepon sekolah">
-                        </div>                       
-                        <span><button type="submit" class="btn btn-primary float-right"><i class="fas fa-window-plus"></i>Tambah Sekolah</button></span>
-                        <a style="margin-right:7px" href="/admin/sekolah"><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></a>
+                            <label for="">Deskripsi</label>
+                            <textarea type="text" class="form-control" name="deskripsi" rows="5" placeholder="Masukkan deskripsi tempat wisata"></textarea>
+                        </div>                   
+                        <span><button type="submit" class="btn btn-primary float-right"><i class="fas fa-window-plus"></i>Tambah Tempat Wisata</button></span>
+                        <a style="margin-right:7px" href="/admin/wisata"><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></a>
                     </form>
                 </div>
             </div>

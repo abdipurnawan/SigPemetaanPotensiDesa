@@ -107,7 +107,7 @@
                     <br>
                     <b>Language:</b> HTML, PHP, JavaScript
                     <br>
-                    <b>Framework:</b> Laravel 7, Bootstrap 5
+                    <b>Framework:</b> Laravel 7, Bootstrap 4
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Kembali</button>

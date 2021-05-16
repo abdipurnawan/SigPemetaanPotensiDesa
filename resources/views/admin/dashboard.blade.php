@@ -3,13 +3,6 @@
 @push('css')
     <style>
         #mapid { height: 950px; }
-        .btn-float {
-            position: fixed;
-            bottom: -4px;
-            right: 10px;
-            margin-bottom: 40px;
-            margin-right: 20px;
-        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
@@ -27,82 +20,76 @@
 
     <!-- Content Row -->
     <div class="row">
-      <!-- Earnings (Monthly) Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Earnings (Monthly) Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Earnings (Monthly) Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                <div class="row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                  </div>
-                  <div class="col">
-                    <div class="progress progress-sm mr-2">
-                      <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Pending Requests Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
+      <a class="col-xl-3 col-md-6 mb-4 text-decoration-none lift" href="/admin/desa">
         <div class="card border-left-warning shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Desa</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$jumlah_desa}}</div>
               </div>
               <div class="col-auto">
-                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                <i class="fas fa-city fa-2x text-gray-300"></i>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
+      <!-- Earnings (Monthly) Card Example -->
+      <a class="col-xl-3 col-md-6 mb-4 text-decoration-none" href="/admin/sekolah">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Sekolah</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$jumlah_sekolah}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-school fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Earnings (Monthly) Card Example -->
+      <a class="col-xl-3 col-md-6 mb-4 text-decoration-none" href="/admin/ibadah">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Tempat Ibadah</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$jumlah_ibadah}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-place-of-worship fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Earnings (Monthly) Card Example -->
+      <a class="col-xl-3 col-md-6 mb-4 text-decoration-none" href="/admin/wisata">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tempat Wisata</div>
+                <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$jumlah_wisata}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-umbrella-beach fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
 
     <!-- Content Row -->
