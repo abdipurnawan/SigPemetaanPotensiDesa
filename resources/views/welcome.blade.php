@@ -155,7 +155,93 @@
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
         }).addTo(mymap);
-        </script>
+                //MENYAMBUNGKAN KOORDINAT DESA
+                function makePolygon(data){
+            var c = [];
+            for(i in data) {
+                var x = data[i]['lat'];
+                var y = data[i]['lng'];
+                c.push([x, y]);
+            }
+            return c;
+        }
+
+        var desas = {!! json_encode($desas->toArray()) !!}
+        desas.forEach(element => {
+          var koor = jQuery.parseJSON(element['batas_desa']);
+            var id = jQuery.parseJSON(element['id']);
+            var pathCoords = makePolygon(koor);
+            var pathLine = L.polygon(pathCoords, {
+                id: element['id'],
+                color: element['warna_batas'],
+                fillColor: element['warna_batas'],
+                fillOpacity: 0.4,
+                nama: element['nama_desa'],
+            }).addTo(mymap);
+
+            pathLine.on('click', function(e) {
+                alert(e.target.options.nama);
+            } );
+          
+        });
+
+        //icon init
+        var schoolIcon = L.icon({
+            iconUrl: '/assets/img/icon_sekolah.png',
+
+            iconSize:     [32, 32], 
+            iconAnchor:   [16, 32], 
+            popupAnchor:  [0, -16] 
+        });
+
+        var ibadahIcon = L.icon({
+            iconUrl: '/assets/img/icon_ibadah.png',
+
+            iconSize:     [32, 32], 
+            iconAnchor:   [16, 32], 
+            popupAnchor:  [0, -16] 
+        });
+
+        var wisataIcon = L.icon({
+            iconUrl: '/assets/img/icon_wisata.png',
+
+            iconSize:     [32, 32], 
+            iconAnchor:   [16, 32], 
+            popupAnchor:  [0, -16] 
+        });
+
+
+        //Marker Loads
+        var sekolahs = {!! json_encode($sekolahs->toArray()) !!}
+        sekolahs.forEach(element => {
+          console.log(element);
+          var marker = L.marker([element.lat, element.lng],{icon: schoolIcon}).addTo(mymap)
+          .bindPopup(element.nama_sekolah);
+          marker.on('click', function() {
+              marker.openPopup();
+          });
+        });
+
+        var ibadahs = {!! json_encode($ibadahs->toArray()) !!}
+        ibadahs.forEach(element => {
+          console.log(element);
+          var markerIbadah = L.marker([element.lat, element.lng],{icon: ibadahIcon}).addTo(mymap)
+          .bindPopup(element.nama_tempat_ibadah);
+          markerIbadah.on('click', function() {
+            markerIbadah.openPopup();
+          });
+        });
+
+        var wisatas = {!! json_encode($wisatas->toArray()) !!}
+        wisatas.forEach(element => {
+          console.log(element);
+          var markerWisata = L.marker([element.lat, element.lng],{icon: wisataIcon}).addTo(mymap)
+          .bindPopup(element.nama_tempat);
+          markerWisata.on('click', function() {
+            markerWisata.openPopup();
+          });
+        });
+    </script>
 </body>
 
 </html>

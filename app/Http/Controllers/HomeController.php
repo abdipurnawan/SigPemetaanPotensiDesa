@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Desa;
+use App\Sekolah;
+use App\Ibadah;
+use App\Wisata;
 
 class HomeController extends Controller
 {
 
     public function index()
     {
-        return view('welcome');
+        $desas = Desa::get();
+        $sekolahs = Sekolah::with('potensi')->get();
+        $ibadahs = Ibadah::with('potensi')->get();
+        $wisatas = Wisata::with('potensi')->get();
+        return view('welcome', compact('desas', 'sekolahs', 'ibadahs', 'wisatas'));
     }
 }

@@ -14,4 +14,8 @@ class Wisata extends Authenticatable
     public function desa(){
         return $this->belongsTo('App\Desa', 'id_desa');
     }
+
+    public function potensi(){
+        return $this->belongsTo('App\JenisPotensi', 'id_potensi');
+    }
 }

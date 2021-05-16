@@ -22,7 +22,12 @@ class DashboardController extends Controller
         $jumlah_sekolah = Sekolah::where('deleted_at', NULL)->count();
         $jumlah_ibadah = Ibadah::where('deleted_at', NULL)->count();
         $jumlah_wisata = Wisata::where('deleted_at', NULL)->count();
+
+
         $desas = Desa::get();
-        return view('admin.dashboard', compact('desas', 'jumlah_desa', 'jumlah_sekolah', 'jumlah_ibadah', 'jumlah_wisata'));
+        $sekolahs = Sekolah::with('potensi')->get();
+        $ibadahs = Ibadah::with('potensi')->get();
+        $wisatas = Wisata::with('potensi')->get();
+        return view('admin.dashboard', compact('desas', 'sekolahs', 'ibadahs', 'wisatas', 'jumlah_desa', 'jumlah_sekolah', 'jumlah_ibadah', 'jumlah_wisata'));
     }
 }
