@@ -31,6 +31,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/login', 'AdminController\AuthController@login')->name('Login');
     Route::get('/logout', 'AdminController\AuthController@logout')->name('Logout');
 
+    //Admin Route
+    Route::get('/admins', 'AdminController\AdminController@index')->name('admin-admin-home');
+    Route::post('/admins/store', 'AdminController\AdminController@store')->name('admin-admin-store');
+    Route::get('/admins/{id}/delete', 'AdminController\AdminController@destroy')->name('admin-admin-delete');
+    Route::get('/admins/role/{id}/{role}', 'AdminController\AdminController@role')->name('admin-admin-role');
+
     //Desa
     Route::get('/desa', 'AdminController\DesaController@index')->name('admin-desa-home');
     Route::get('/desa/create', 'AdminController\DesaController@create')->name('admin-desa-create');

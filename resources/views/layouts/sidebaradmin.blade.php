@@ -69,12 +69,15 @@
     <div class="sidebar-heading">
         Tentang SIG Desa
     </div>
+
+    @if(auth()->guard()->user()->role==1)
     <!-- Nav Item - Tables -->
     <li class="nav-item" id="desa">
-        <a class="nav-link" href="{{ route('admin-desa-home') }}">
+        <a class="nav-link" href="{{ route('admin-admin-home') }}">
             <i class="fas fa-users-cog"></i>
             <span>Admin</span></a>
     </li>
+    @endif
     <li class="nav-item" id="desa">
       <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">
           <i class="fas fa-info-circle"></i>
