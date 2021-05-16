@@ -24,8 +24,8 @@ class SekolahController extends Controller
 
     public function create()
     {
-        $desa = Desa::get();
-        return view('admin.sekolah.create', compact('desa'));
+        $desas = Desa::get();
+        return view('admin.sekolah.create', compact('desas'));
     }
 
     public function store(Request $request)

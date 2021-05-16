@@ -50,10 +50,10 @@
                             <input type="text" class="form-control" name="nama_sekolah" placeholder="Masukkan nama sekolah">
                         </div>
                         <div class="form-group form-group mt-3">
-                            <label for="kategori">Desa</label>
-                            <select class="form-control" data-live-search="true" id="desa" rows="3" name="desa" required>
+                            <label for="desa">Desa</label>
+                            <select class="form-control" data-live-search="true" id="desaa" rows="3" name="desa" required>
                               <option value="">Pilih Desa</option>
-                                @foreach ($desa as $desa)
+                                @foreach ($desas as $desa)
                                     <option value="{{$desa->id}}">{{$desa->nama_desa}}</option>
                                 @endforeach
                             </select>  
@@ -137,12 +137,43 @@
             cutPolygon: false,
         });
 
+        //MENYAMBUNGKAN KOORDINAT DESA
+        function makePolygon(data){
+            var c = [];
+            for(i in data) {
+                var x = data[i]['lat'];
+                var y = data[i]['lng'];
+                c.push([x, y]);
+            }
+            return c;
+        }
+
+        $('#desaa').on('change', function(){
+            //READ KOORDINAT DESA
+            var myDesa = {!! json_encode($desas->toArray()) !!}
+            console.log(myDesa);
+            myDesa.forEach(element => {
+                if($('#desaa').val() == element['id']){
+                    var koor = jQuery.parseJSON(element['batas_desa']);
+                    var id = jQuery.parseJSON(element['id']);
+                    var pathCoords = makePolygon(koor);
+                    var pathLine = L.polygon(pathCoords, {
+                        id: element['id'],
+                        color: element['warna_batas'],
+                        fillColor: element['warna_batas'],
+                        fillOpacity: 0.4,
+                        nama: element['nama_desa'],
+                    }).addTo(mymap);    
+                }
+
+            });
+        });
+
         $('#set-koordinat').on('click', function(){
             mymap.pm.enableDraw('Marker', {
                 snappable: true,
                 snapDistance: 20,
             });
-            
         });
 
         mymap.on('pm:remove', e=> {

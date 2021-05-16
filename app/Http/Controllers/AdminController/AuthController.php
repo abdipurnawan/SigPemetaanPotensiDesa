@@ -30,7 +30,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])){
-            return redirect()->route('Dashboard');
+            return redirect()->route('dashboard');
         } else {
             return redirect()->back()->with('message', 'Email atau Password Anda Salah');
         }
@@ -40,6 +40,6 @@ class AuthController extends Controller
     {
         Auth::guard()->logout();
 
-        return redirect()->route('Login Form');
+        return redirect()->route('home');
     }
 }

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/test', function () {
     return view('layouts.admin');
@@ -24,7 +24,8 @@ Route::get('/test', function () {
 //ADMIN ROUTE
 Route::group(['prefix' => 'admin'], function () {
     //HOME
-    Route::get('/dashboard', 'AdminController\DashboardController@dashboard')->name('Dashboard');
+    Route::redirect('/', '/admin/dashboard');
+    Route::get('/dashboard', 'AdminController\DashboardController@dashboard')->name('dashboard');
 
     //Auth Route
     Route::get('/login', 'AdminController\AuthController@loginForm')->name('Login Form')->middleware('guest');
