@@ -2,7 +2,7 @@
 @section('title', 'Tambah Tempat Wisata')
 @push('css')
     <style>
-        #mapid { height: 600px; }
+        #mapid { height: 750px; }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
@@ -120,11 +120,55 @@
                                     Deskripsi tempat wisata wajib diisi
                                 </div>
                             @enderror
-                        </div>                   
+                        </div>
+                        <div class="form-group mt-4 mb-4">
+                            <label for="thumbnail">Foto Tempat Wisata</label>
+                            <br>
+                            <input type="text" class="form-control" name="foto" id="foto" placeholder="url" hidden required>
+                            <img src="{{asset('assets/img/placeholder_wisata.png')}}" style="border: 2px solid #DCDCDC;padding: 5px;height:100%;width:100%;" id="propic">
+                            @error('foto')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Foto tempat wisata wajib diisi
+                                </div>
+                            @enderror
+                            <div class="custom-file">
+                                <button type="button" class="btn btn-primary mt-1" data-target="#crop-image" data-toggle="modal"><i class="fa fa-images"></i> Pilih Foto</button>
+                            </div>
+                        </div>                     
                         <span><button type="submit" class="btn btn-primary float-right"><i class="fas fa-window-plus"></i>Tambah Tempat Wisata</button></span>
                         <a style="margin-right:7px" href="/admin/wisata"><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></a>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+    {{-- CROPPER --}}
+    <div class="modal fade" id="crop-image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pilih Foto Tempat Wisata</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin: 20px">
+                    <img  src="{{asset('assets/img/placeholder_wisata.png')}}" id="image-preview"  width="100%" height="100%" alt="">
+                    <div class="custom-file" style="margin-top: 20px">
+                        <input type="file" class="custom-file-input" id="profile-image" name="thumbnail" accept="images/*" required>
+                        <label for="thumbnail_label" id="thumbnail_labell" class="custom-file-label">Pilih Foto</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modal-close" class="btn btn-danger" data-dismiss="modal">Kembali</button>
+                <button type="button" id="update-foto-profile" class="btn btn-primary" data-dismiss="modal">Pilih</button>
+            </div>
             </div>
         </div>
     </div>
@@ -294,7 +338,7 @@
         }).addTo(mymap);
 
         $(document).ready(function(){
-            $('#sekolah').addClass('active');
+            $('#wisata').addClass('active');
             $('#potensi').addClass('active');
         });
 
@@ -315,5 +359,77 @@
                 }, false)
             })
         })()
+
+
+
+        //CROPPER JS
+        //CROPPER
+        function changeProfile(){
+            $('#profile-image').trigger('click');
+        }
+
+        var cropper;
+        var image = document.getElementById('image-preview');
+
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept-Encoding' : 'gzip',
+                }
+            });
+            $('#profile-image').on('change', function(){
+                var filedata = this.files[0];
+                var imgtype = filedata.type;
+                var match = ['image/jpg', 'image/jpeg', 'image/png'];
+                if (!(filedata.type==match[0]||filedata.type==match[1]||filedata.type==match[2])) {
+                    alert("Format gambar Salah");
+                }else{
+                    var reader=new FileReader();
+                    reader.onload=function(ev){
+                        $('#image-preview').attr('src', ev.target.result);
+                        cropper.destroy();
+                        cropper = null;
+                        cropper = new Cropper(image, {
+                            aspectRatio: 16 / 9,
+                            viewMode: 1,
+                            preview: '.preview'
+                        });
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                    var postData=new FormData();
+                    postData.append('file', this.files[0]);
+                }
+            });
+            $('#crop-image').on('shown.bs.modal', function(){
+                cropper = new Cropper(image, {
+                    aspectRatio: 16 / 9,
+                    viewMode: 3,
+                    preview: '.preview'
+                });
+            }).on('hidden.bs.modal', function(){
+                cropper.destroy();
+                cropper = null;
+            });
+
+            $('#update-foto-profile').on('click', function(){
+                canvas = cropper.getCroppedCanvas({
+                    width: 1080,
+                    height: 1920,
+                });
+                canvas.toBlob(function(blob){
+                    url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    
+                    reader.onloadend = function() {
+                        $('#propic').attr('src', reader.result);
+                        var base64data = reader.result;
+                        $('#foto').val(reader.result);
+                        
+                    }
+                });
+            });
+        });
     </script>
 @endpush

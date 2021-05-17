@@ -8,6 +8,7 @@ use App\models\Desa;
 use App\Ibadah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class IbadahController extends Controller
 {
@@ -36,7 +37,8 @@ class IbadahController extends Controller
             'alamat' => 'required',
             'lat' => 'required',
             'lng' => 'required',
-            'alamat' => 'required'
+            'alamat' => 'required',
+            'foto' => 'required'
         ]);
 
         if($validator->fails()){
@@ -51,6 +53,17 @@ class IbadahController extends Controller
         $ibadah->lat = $request->lat;
         $ibadah->lng = $request->lng;
         $ibadah->id_desa = $request->desa;
+
+        $image_parts = explode(';base64', $request->foto);
+        $image_type_aux = explode('image/', $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $filename = uniqid().'.png';
+        $fileLocation = '/image/ibadah/'.$request->nama_tempat_ibadah;
+        $path = $fileLocation."/".$filename;
+        $ibadah->foto = '/storage'.$path;
+        Storage::disk('public')->put($path, $image_base64);
+
         $ibadah->save();
         return redirect('admin/ibadah')->with('statusInput', 'Tempat Ibadah Berhasil Ditambahkan');
     }
@@ -83,6 +96,19 @@ class IbadahController extends Controller
         $ibadah->lat = $request->lat;
         $ibadah->lng = $request->lng;
         $ibadah->id_desa = $request->desa;
+
+        if($request->foto!=''){
+            $image_parts = explode(';base64', $request->foto);
+            $image_type_aux = explode('image/', $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $filename = uniqid().'.png';
+            $fileLocation = '/image/ibadah/'.$request->nama_tempat_ibadah;
+            $path = $fileLocation."/".$filename;
+            $ibadah->foto = '/storage'.$path;
+            Storage::disk('public')->put($path, $image_base64);
+        }
+
         $ibadah->save();
         return redirect('admin/ibadah')->with('statusInput', 'Tempat Ibadah Berhasil Diperbaharui');
     }

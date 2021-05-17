@@ -8,6 +8,8 @@ use App\models\Desa;
 use App\Sekolah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
 
 class SekolahController extends Controller
 {
@@ -37,7 +39,8 @@ class SekolahController extends Controller
             'lat' => 'required',
             'lng' => 'required',
             'alamat' => 'required',
-            'telepon' => 'required'
+            'telepon' => 'required',
+            'foto' => 'required'
         ]);
 
         if($validator->fails()){
@@ -53,6 +56,17 @@ class SekolahController extends Controller
         $sekolah->lat = $request->lat;
         $sekolah->lng = $request->lng;
         $sekolah->id_desa = $request->desa;
+
+        $image_parts = explode(';base64', $request->foto);
+        $image_type_aux = explode('image/', $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $filename = uniqid().'.png';
+        $fileLocation = '/image/sekolah/'.$request->nama_sekolah;
+        $path = $fileLocation."/".$filename;
+        $sekolah->foto = '/storage'.$path;
+        Storage::disk('public')->put($path, $image_base64);
+
         $sekolah->save();
         return redirect('admin/sekolah')->with('statusInput', 'Sekolah Berhasil Ditambahkan');
     }
@@ -87,6 +101,18 @@ class SekolahController extends Controller
         $sekolah->lat = $request->lat;
         $sekolah->lng = $request->lng;
         $sekolah->id_desa = $request->desa;
+        if($request->foto!=''){
+            Storage::disk('public')->delete($sekolah->foto);
+            $image_parts = explode(';base64', $request->foto);
+            $image_type_aux = explode('image/', $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $filename = uniqid().'.png';
+            $fileLocation = '/image/sekolah/'.$request->nama_sekolah;
+            $path = $fileLocation."/".$filename;
+            $sekolah->foto = '/storage'.$path;
+            Storage::disk('public')->put($path, $image_base64);
+        }
         $sekolah->update();
         return redirect('admin/sekolah')->with('statusInput', 'Sekolah Berhasil Diperbaharui');
     }

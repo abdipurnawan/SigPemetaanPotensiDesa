@@ -2,7 +2,7 @@
 @section('title', 'Detail Tempat Ibadah')
 @push('css')
     <style>
-        #mapid { height: 600px; }
+        #mapid { height: 750px; }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
@@ -76,7 +76,12 @@
                         <div class="form-group">
                             <label for="">Alamat</label>
                             <input type="text" class="form-control" name="alamat" value="{{$ibadah->alamat}}" readonly>
-                        </div>                   
+                        </div>
+                        <div class="form-group mt-4 mb-4">
+                            <label for="thumbnail">Foto Tempat Ibadah</label>
+                            <br>
+                            <img src="{{$ibadah->foto}}" style="border: 2px solid #DCDCDC;padding: 5px;height:100%;width:100%;" id="propic">
+                        </div>                        
                         <a style="margin-right:7px" href="/admin/ibadah"><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></a>
                     </form>
                 </div>

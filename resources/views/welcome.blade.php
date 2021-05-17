@@ -84,7 +84,7 @@
 
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item"><a class="page-scroll" href="#home">Beranda</a></li>
+                                    <li class="nav-item"><a class="page-scroll" href="{{ route('home') }}">Beranda</a></li>
                                     <li class="nav-item"><a class="page-scroll" href="#about">Desa</a></li>
                                     <li class="nav-item"><a class="page-scroll" href="#service">Sekolah</a></li>
                                     <li class="nav-item"><a class="page-scroll" href="#work">Tempat Ibadah</a></li>
