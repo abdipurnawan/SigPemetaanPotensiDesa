@@ -30,6 +30,9 @@
     <!--====== Style css ======-->
     <link rel="stylesheet" href="{{ asset('landing/assets/css/style.css') }}">
 
+        <!-- Custom styles for this template-->
+        <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
     <style>
         #mapid { height: 100vh; }
     </style>
@@ -106,6 +109,48 @@
     <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
 
     <!--====== BACK TOP TOP PART ENDS ======-->
+
+    {{-- CROPPER --}}
+    <div class="modal fade" id="modalSekolah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sekolah</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <div class="form-group ml-3 mr-3">
+                    <label for="">Nama Sekolah</label>
+                    <input type="text" class="form-control" name="nama_sekolah" id="nama_sekolah" disabled>
+                </div>
+                <div class="form-group ml-3 mr-3">
+                    <label for="">Jenis Sekolah</label>
+                    <input type="text" class="form-control" name="nama_sekolah" id="jenis_sekolah" disabled>
+                </div>
+                <div class="form-group ml-3 mr-3">
+                    <label for="">Desa</label>
+                    <input type="text" class="form-control" name="nama_sekolah" id="desa_sekolah" disabled>
+                </div>
+                <div class="form-group ml-3 mr-3">
+                    <label for="">Alamat</label>
+                    <input type="text" class="form-control" name="nama_sekolah" id="alamat_sekolah" disabled>
+                </div>
+                <div class="form-group ml-3 mr-3">
+                    <label for="">Telepon</label>
+                    <input type="text" class="form-control" name="nama_sekolah" id="telepon_sekolah" disabled>
+                </div>
+                <div class="row" style="margin: 20px">
+                    <img  src="{{asset('assets/img/placeholder_wisata.png')}}" id="image-preview"  width="100%" height="100%" alt="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modal-close" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -210,21 +255,32 @@
             popupAnchor:  [0, -16] 
         });
 
-
+        function getDetailSekolah(id){
+            $.ajax({
+                url: "getDetailSekolah/"+id,
+                method: 'get',
+                success: function(result){
+                    $("#nama_sekolah").val(result.sekolah['nama_sekolah']);
+                    $("#jenis_sekolah").val(result.sekolah['jenis']);
+                    $("#desa_sekolah").val(result.sekolah.desa['nama_desa']);
+                    $("#alamat_sekolah").val(result.sekolah['alamat']);
+                    $("#telepon_sekolah").val(result.sekolah['telepon']);
+                    $('#image-preview').attr('src', result.sekolah['foto']);
+                    $("#modalSekolah").modal('show');    
+                }
+            });
+        }
         //Marker Loads
         var sekolahs = {!! json_encode($sekolahs->toArray()) !!}
         sekolahs.forEach(element => {
-          console.log(element);
-          var marker = L.marker([element.lat, element.lng],{icon: schoolIcon}).addTo(mymap)
-          .bindPopup(element.nama_sekolah);
-          marker.on('click', function() {
-              marker.openPopup();
-          });
+          var marker = L.marker([element.lat, element.lng],{icon: schoolIcon, id: element.id}).addTo(mymap);
+            marker.on('click',function(e){
+                getDetailSekolah(e.target.options.id);
+            });
         });
 
         var ibadahs = {!! json_encode($ibadahs->toArray()) !!}
         ibadahs.forEach(element => {
-          console.log(element);
           var markerIbadah = L.marker([element.lat, element.lng],{icon: ibadahIcon}).addTo(mymap)
           .bindPopup(element.nama_tempat_ibadah);
           markerIbadah.on('click', function() {
@@ -234,7 +290,6 @@
 
         var wisatas = {!! json_encode($wisatas->toArray()) !!}
         wisatas.forEach(element => {
-          console.log(element);
           var markerWisata = L.marker([element.lat, element.lng],{icon: wisataIcon}).addTo(mymap)
           .bindPopup(element.nama_tempat);
           markerWisata.on('click', function() {

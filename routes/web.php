@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/getDetailSekolah/{id}', 'HomeController@getDetailSekolah')->name('getDetailSekolah');
 
 Route::get('/test', function () {
     return view('layouts.admin');

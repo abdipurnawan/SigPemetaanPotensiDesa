@@ -21,4 +21,9 @@ class HomeController extends Controller
         $wisatas = Wisata::with('potensi')->get();
         return view('welcome', compact('desas', 'sekolahs', 'ibadahs', 'wisatas'));
     }
+
+    public function getDetailSekolah($id){
+        $sekolah = Sekolah::with('desa')->find($id);
+        return response()->json(['success' => 'Berhasil', 'sekolah' => $sekolah]);
+    }
 }
