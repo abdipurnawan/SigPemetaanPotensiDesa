@@ -43,11 +43,20 @@
                     <h6 class="m-0 font-weight-bold text-primary">Data Desa</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin-desa-update', $desa->id) }}" id="form-desa" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin-desa-update', $desa->id) }}" id="form-desa" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         @csrf
                         <div class="form-group">
                             <label for="">Nama Desa</label>
-                            <input type="text" class="form-control" name="nama_desa" value="{{$desa->nama_desa}}" placeholder="Masukkan nama desa">
+                            <input type="text" class="form-control @error('nama_desa') is-invalid @enderror" name="nama_desa" value="{{$desa->nama_desa}}" placeholder="Masukkan nama desa" required>
+                            @error('nama_desa')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Nama desa wajib diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Warna Batas</label>
@@ -78,6 +87,10 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
     <script>
+        //GLOBAL VAR INIT
+        let status = 1;
+        let pathLine;
+
         var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 9);
         L.Map.include({
             getMarkerById: function (id) {
@@ -93,6 +106,31 @@
             }
         });
 
+        //MENYAMBUNGKAN KOORDINAT DESA
+        function makePolygon(data){
+        var c = [];
+            for(i in data) {
+                var x = data[i]['lat'];
+                var y = data[i]['lng'];
+                c.push([x, y]);
+            }
+            return c;
+        }
+
+        function readDesa(){
+            //READ KOORDINAT DESA
+            var batas = {!! json_encode($desa) !!}
+            var koor = jQuery.parseJSON(batas['batas_desa']);
+            var pathCoords = makePolygon(koor);
+            pathLine = L.polygon(pathCoords, {
+                color: batas['warna_batas'],
+                fillColor: batas['warna_batas'],
+                fillOpacity: 0.4,
+            }).addTo(mymap)
+        }
+
+        readDesa();
+
         mymap.pm.addControls({  
             position: 'topleft',
             drawCircle: false,
@@ -100,15 +138,21 @@
             drawCircleMarker:false,
             drawRectangle: false,
             drawPolyline: false,
+            drawPolygon: false,
             dragMode:false,
             cutPolygon: false,
+            editMode: true,
+            removalMode: true,
         });
 
         $('#set-koordinat').on('click', function(){
-            mymap.pm.enableDraw('Polygon', {
-                snappable: true,
-                snapDistance: 20,
-            });
+            if(status == 0){
+                mymap.pm.enableDraw('Polygon', {
+                    snappable: true,
+                    snapDistance: 20,
+                });
+            }
+
         });
 
         $('#color-picker').on('change', function(){
@@ -123,6 +167,7 @@
         var line = [];
 
         mymap.on('pm:drawstart', ({ workingLayer }) => {
+            line = [];
             workingLayer.on('pm:vertexadded', e => {
                 var koordinat = {};
                 koordinat['lat'] = e.latlng.lat;
@@ -134,13 +179,20 @@
         });
 
         mymap.on('pm:remove', e=> {
-            var id = e.layer.options.id;
             $('#batas-desa').val("");
+            mymap.pm.addControls({  
+                position: 'topleft',
+                drawPolygon: true,
+                editMode: false,
+                removalMode: false,
+            });
+
+            status = 0;
         });
 
         mymap.on('pm:create', e => {
-        console.log(e);
-        $('#batas-desa').val(JSON.stringify(line));
+            console.log(e);
+            $('#batas-desa').val(JSON.stringify(line));
             e.layer.on('pm:update', e => {
                 var id = e.layer.options.id;
                     var koordinats = e.layer._latlngs;
@@ -156,6 +208,14 @@
                     });
                 $('#batas-desa').val(JSON.stringify(line));
             });
+            mymap.pm.addControls({  
+                position: 'topleft',
+                drawPolygon: false,
+                editMode: true,
+                removalMode: true,
+            });
+
+            status = 1;
         });
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -167,45 +227,26 @@
             accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
         }).addTo(mymap);
 
-        //MENYAMBUNGKAN KOORDINAT DESA
-        function makePolygon(data){
-        var c = [];
-            for(i in data) {
-                var x = data[i]['lat'];
-                var y = data[i]['lng'];
-                c.push([x, y]);
-            }
-            return c;
-        }
-
-        //READ KOORDINAT DESA
-        var batas = {!! json_encode($desa) !!}
-        var koor = jQuery.parseJSON(batas['batas_desa']);
-        var pathCoords = makePolygon(koor);
-        var pathLine = L.polygon(pathCoords, {
-            color: batas['warna_batas'],
-            fillColor: batas['warna_batas'],
-            fillOpacity: 0.4,
-        }).addTo(mymap)
-
-        pathLine.on('pm:update', e => {
-            var id = e.layer.options.id;
-                var koordinats = e.layer._latlngs;
-                let koordinat = {};
-                line = [];
-                koordinats.forEach(function(latlng){
-                    for(let m = 0; m<latlng.length; m++){
-                        console.log(latlng[m]);
-                        line.push(
-                            latlng[m]
-                        )
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
                     }
-                });
-            $('#batas-desa').val(JSON.stringify(line));
-            updateLine(id, line);
-        });
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
 
         $(document).ready(function(){
+            $('#desa').addClass('active');
             let color = $('#color-picker').val();
             mymap.pm.setPathOptions({
                 color: color,

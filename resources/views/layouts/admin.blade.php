@@ -19,6 +19,11 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        select {
+            -webkit-appearance: none;
+        }
+    </style>
     @stack('css')
 </head>
 

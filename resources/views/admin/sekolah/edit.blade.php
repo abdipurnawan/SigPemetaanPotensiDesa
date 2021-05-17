@@ -43,20 +43,38 @@
                     <h6 class="m-0 font-weight-bold text-primary">Data Sekolah</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin-sekolah-update', $sekolah->id) }}" id="form-desa" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin-sekolah-update', $sekolah->id) }}" id="form-desa" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         @csrf
                         <div class="form-group">
                             <label for="">Nama Sekolah</label>
-                            <input type="text" class="form-control" name="nama_sekolah" value="{{$sekolah->nama_sekolah}}" placeholder="Masukkan nama sekolah">
+                            <input type="text" class="form-control @error('nama_sekolah') is-invalid @enderror" name="nama_sekolah" value="{{$sekolah->nama_sekolah}}" placeholder="Masukkan nama sekolah" required>
+                            @error('nama_sekolah')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Nama sekolah wajib diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group form-group mt-3">
-                            <label for="kategori">Desa</label>
-                            <select class="form-control" data-live-search="true" id="desa" rows="3" name="desa" required>
-                              <option value="">Pilih Desa</option>
-                                @foreach ($desa as $desa)
-                                    <option value="{{$desa->id}}" @if($desa->id==$sekolah->id_desa) selected @endif>{{$desa->nama_desa}}</option>
-                                @endforeach
-                            </select>  
+                            <label for="desa">Desa</label>
+                            <select class="form-control" data-live-search="true" id="desaa" rows="3" name="desa" required>
+                                <option value="">Pilih Desa</option>
+                                  @foreach ($desas as $desa)
+                                      <option value="{{$desa->id}}" @if($desa->id==$sekolah->id_desa) selected @endif>{{$desa->nama_desa}}</option>
+                                  @endforeach
+                              </select> 
+                            @error('desa')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Desa wajib dipilih
+                                </div>
+                            @enderror  
                         </div>
                         <div class="form-group form-group mt-3">
                             <label for="kategori">Jenis Sekolah</label>
@@ -68,12 +86,21 @@
                                 <option value="SMP" @if($sekolah->jenis=="SMP") selected @endif>Sekolah Menengah Pertama</option>
                                 <option value="SMA" @if($sekolah->jenis=="SMA") selected @endif>Sekolah Menengah Atas</option>
                                 <option value="Universitas" @if($sekolah->jenis=="Universitas") selected @endif>Perguruan Tinggi</option>
-                              </select>  
+                              </select> 
+                            @error('jenis')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Jenis sekolah sekolah wajib dipilih
+                                </div>
+                            @enderror 
                         </div>
                         <div class="form-group">
                             <label for="">Lokasi Sekolah</label>
                             <div class="input-group mb-2 mr-sm-2">
-                                <input type="text" readonly class="form-control" id="marker-sekolah"  placeholder="Masukkan Lokasi Sekolah">
+                                <input type="text" readonly class="form-control" id="marker-sekolah" placeholder="Masukkan lokasi sekolah">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <a href="javascript:void(0)" id="set-koordinat"><i class="fas fa-map-marker-alt"></i></a>
@@ -83,19 +110,55 @@
                         </div>
                         <div class="form-group">
                             <label for="">Latitude</label>
-                            <input type="text" class="form-control" name="lat" id="lat" value="{{$sekolah->lat}}" readonly>
+                            <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="lat" value="{{$sekolah->lat}}" readonly required>
+                            @error('lat')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Koordinat latitude sekolah wajib diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Longitude</label>
-                            <input type="text" class="form-control" name="lng" id="lng" value="{{$sekolah->lng}}" readonly>
+                            <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="lng" value="{{$sekolah->lng}}"  readonly required>
+                            @error('lng')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Koordinat longitude sekolah wajib diisi
+                                </div>
+                            @enderror
                         </div> 
                         <div class="form-group">
                             <label for="">Alamat</label>
-                            <input type="text" class="form-control" name="alamat" value="{{$sekolah->alamat}}" placeholder="Masukkan alamat sekolah">
+                            <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{$sekolah->alamat}}" placeholder="Masukkan alamat sekolah" required>
+                            @error('alamat')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Alamat sekolah wajib diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Telepon</label>
-                            <input type="text" class="form-control" name="telepon" value="{{$sekolah->telepon}}" placeholder="Masukkan telepon sekolah">
+                            <input type="text" class="form-control @error('telepon') is-invalid @enderror" name="telepon"value="{{$sekolah->telepon}}" placeholder="Masukkan telepon sekolah" required>
+                            @error('telepon')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Telepon sekolah wajib diisi
+                                </div>
+                            @enderror
                         </div>                       
                         <span><button type="submit" class="btn btn-primary float-right"><i class="fas fa-window-plus"></i>Update Sekolah</button></span>
                         <a style="margin-right:7px" href="/admin/sekolah"><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></a>
@@ -109,6 +172,20 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
     <script>
+        //GLOBAL VAR
+        var status = 0;
+        let pathLine;
+
+        //icon init
+        var schoolIcon = L.icon({
+            iconUrl: '/assets/img/icon_sekolah.png',
+
+            iconSize:     [32, 32], 
+            iconAnchor:   [16, 32], 
+            popupAnchor:  [0, -16] 
+        });
+
+        //MAP INIT
         var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 9);
         L.Map.include({
             getMarkerById: function (id) {
@@ -124,40 +201,136 @@
             }
         });
 
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
+        }).addTo(mymap);
+
+        //ADD CONTROLL
         mymap.pm.addControls({  
             position: 'topleft',
             drawCircle: false,
-            drawMarker: true,
+            drawMarker: false,
             drawCircleMarker:false,
             drawRectangle: false,
             drawPolyline: false,
             drawPolygon: false,
             dragMode:false,
-            editMode: false,
+            editMode: true,
             cutPolygon: false,
+            removalMode: false,
         });
 
-        $('#set-koordinat').on('click', function(){
-            mymap.pm.enableDraw('Marker', {
-                snappable: true,
-                snapDistance: 20,
+        //MENYAMBUNGKAN KOORDINAT DESA
+        function makePolygon(data){
+            var c = [];
+            for(i in data) {
+                var x = data[i]['lat'];
+                var y = data[i]['lng'];
+                c.push([x, y]);
+            }
+            return c;
+        }
+    
+        //TRIGGERED KETIKA DESA BERUBAH
+        $('#desaa').on('change', function(){
+            readDesa();
+            readMarker();
+
+            if($('#desaa').val()==''){
+                mymap.pm.addControls({
+                    editMode: false,
+                    drawMarker: false,
+                    removalMode: false,
+                });
+            }else if($('#desaa').val()!=''){
+                mymap.pm.addControls({
+                    editMode: true,
+                    drawMarker: true,
+                    removalMode: false,
+                });
+            }
+        });
+
+        function readDesa(){
+            //READ KOORDINAT DESA
+            var myDesa = {!! json_encode($desas->toArray()) !!}
+                console.log(myDesa);
+                myDesa.forEach(element => {
+                    if($('#desaa').val() == element['id']){
+                        for(; Object.keys(mymap._layers).length > 1;) {
+                            console.log(mymap._layers)
+                            mymap.removeLayer(mymap._layers[Object.keys(mymap._layers)[1]]);
+                        }
+                        var koor = jQuery.parseJSON(element['batas_desa']);
+                        var id = jQuery.parseJSON(element['id']);
+                        var pathCoords = makePolygon(koor);
+                        pathLine = L.polygon(pathCoords, {
+                            id: element['id'],
+                            color: element['warna_batas'],
+                            fillColor: element['warna_batas'],
+                            fillOpacity: 0.4,
+                            nama: element['nama_desa'],
+                        }).addTo(mymap);
+                    }
+
+            });            
+        }
+
+        function readMarker(){
+            //READ Marker Sekolah
+            var sekolah = {!! json_encode($sekolah) !!}
+            var marker = L.marker([sekolah.lat, sekolah.lng],{icon: schoolIcon}).addTo(mymap)
+            .bindPopup(sekolah.nama_sekolah);
+            marker.on('click', function() {
+                marker.openPopup();
             });
-            
+            mymap.pm.addControls({
+                editMode: true,
+                drawMarker: false,
+                removalMode: true,
+            });
+
+            marker.on('pm:update', ({layer}) => {
+                console.log(layer._latlng);
+                $('#lat').val(layer._latlng.lat);
+                $('#lng').val(layer._latlng.lng);
+            });
+
+            marker.on('pm:remove', ({layer}) => {
+                $('#lat').val('');
+                $('#lng').val('');
+                mymap.pm.addControls({
+                    editMode: false,
+                    drawMarker: true,
+                    removalMode: false,
+                });
+            });
+        }
+
+        readDesa();
+        readMarker();
+
+        //SET MARKER BUTTON
+        $('#set-koordinat').on('click', function(){
+            if(status == 0 && $('#desaa').val()!=''){
+                mymap.pm.enableDraw('Marker', {
+                    snappable: true,
+                    snapDistance: 20,
+                    markerStyle: {
+                        draggable: true,
+                        icon: schoolIcon,
+                    },
+                });
+            }
+
         });
 
-        //READ Marker Sekolah
-        var sekolah = {!! json_encode($sekolah) !!}
-        var marker = L.marker([sekolah.lat, sekolah.lng]).addTo(mymap)
-        .bindPopup(sekolah.nama_sekolah);
-        marker.on('click', function() {
-            marker.openPopup();
-        });
-
-        mymap.on('pm:remove', e=> {
-            $('#lat').val("");
-            $('#lng').val("");
-        });
-
+        //HANDLER PM CREATE
         mymap.on('pm:create', e => {
         let shape = e.shape;
         console.log(e);
@@ -170,20 +343,54 @@
                     snappable: true,
                     snapDistance: 20,
                 });
+
+                status = 1;
+
+                mymap.pm.addControls({
+                    editMode: true,
+                    drawMarker: false,
+                    removalMode: true,
+                });
+
+                e.marker.on('pm:update', ({layer}) => {
+                    console.log(layer._latlng);
+                    $('#lat').val(layer._latlng.lat);
+                    $('#lng').val(layer._latlng.lng);
+                });
+
+                e.marker.on('pm:remove', ({layer}) => {
+                    $('#lat').val('');
+                    $('#lng').val('');
+                    mymap.pm.addControls({
+                        editMode: false,
+                        drawMarker: true,
+                        removalMode: false,
+                    });
+                });
             }
         });
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
-        }).addTo(mymap);
-
         $(document).ready(function(){
-
+            $('#sekolah').addClass('active');
+            $('#potensi').addClass('active');
         });
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
     </script>
 @endpush

@@ -43,37 +43,64 @@
                     <h6 class="m-0 font-weight-bold text-primary">Data Tempat Ibadah</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin-ibadah-store') }}" id="form-desa" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin-ibadah-store') }}" id="form-desa" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         @csrf
                         <div class="form-group">
                             <label for="">Nama Tempat Ibadah</label>
-                            <input type="text" class="form-control" name="nama_tempat_ibadah" placeholder="Masukkan nama tempat ibadah">
+                            <input type="text" class="form-control @error('nama_tempat_ibadah') is-invalid @enderror" name="nama_tempat_ibadah" placeholder="Masukkan nama tempat ibadah" required>
+                            @error('nama_tempat_ibadah')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Nama tempat ibadah wajib diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group form-group mt-3">
                             <label for="kategori">Desa</label>
-                            <select class="form-control" data-live-search="true" id="desa" rows="3" name="desa" required>
-                              <option value="">Pilih Desa</option>
-                                @foreach ($desa as $desa)
+                            <select class="form-control @error('desa') is-invalid @enderror" data-live-search="true" id="desaa" rows="3" name="desa" required>
+                              <option value="">Pilih desa</option>
+                                @foreach ($desas as $desa)
                                     <option value="{{$desa->id}}">{{$desa->nama_desa}}</option>
                                 @endforeach
-                            </select>  
+                            </select> 
+                            @error('desaa')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Desa wajib dipilih
+                                </div>
+                            @enderror 
                         </div>
                         <div class="form-group form-group mt-3">
                             <label for="kategori">Agama</label>
-                            <select class="form-control" data-live-search="true" id="agama" rows="3" name="agama" required>
-                              <option value="">Pilih Agama</option>
+                            <select class="form-control @error('agama') is-invalid @enderror" data-live-search="true" id="agama" rows="3" name="agama" required>
+                              <option value="">Pilih agama</option>
                               <option value="Islam">Islam</option>
                               <option value="Hindu">Hindu</option>
                               <option value="Katolik">Katolik</option>
                               <option value="Kristen">Kristen</option>
                               <option value="Buddha">Buddha</option>
                               <option value="Konghuchu">Konghuchu</option>
-                            </select>  
+                            </select>
+                            @error('agama')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Agama wajib dipilih
+                                </div>
+                            @enderror  
                         </div>
                         <div class="form-group">
                             <label for="">Lokasi Tempat Ibadah</label>
                             <div class="input-group mb-2 mr-sm-2">
-                                <input type="text" readonly class="form-control" id="marker-sekolah" placeholder="Masukkan Lokasi Tempat Ibadah">
+                                <input type="text" readonly class="form-control" id="marker-sekolah" placeholder="Masukkan lokasi tempat ibadah">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <a href="javascript:void(0)" id="set-koordinat"><i class="fas fa-map-marker-alt"></i></a>
@@ -91,7 +118,16 @@
                         </div> 
                         <div class="form-group">
                             <label for="">Alamat</label>
-                            <input type="text" class="form-control" name="alamat" placeholder="Masukkan alamat tempat ibadah">
+                            <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="Masukkan alamat tempat ibadah" required>
+                            @error('alamat')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Alamat wajib diisi
+                                </div>
+                            @enderror
                         </div>                   
                         <span><button type="submit" class="btn btn-primary float-right"><i class="fas fa-window-plus"></i>Tambah Tempat Ibadah</button></span>
                         <a style="margin-right:7px" href="/admin/ibadah"><button type="button" class="btn btn-secondary float-right mr-2"><i class="fas fa-window-plus"></i>Kembali</button></a>
@@ -105,6 +141,20 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
     <script>
+        //GLOBAL VAR
+        var status = 0;
+        let pathLine;
+
+        //icon init
+        var ibadahIcon = L.icon({
+            iconUrl: '/assets/img/icon_ibadah.png',
+
+            iconSize:     [32, 32], 
+            iconAnchor:   [16, 32], 
+            popupAnchor:  [0, -16] 
+        });
+
+        //MAP INIT
         var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 9);
         L.Map.include({
             getMarkerById: function (id) {
@@ -120,10 +170,11 @@
             }
         });
 
+        //ADD CONTROLL
         mymap.pm.addControls({  
             position: 'topleft',
             drawCircle: false,
-            drawMarker: true,
+            drawMarker: false,
             drawCircleMarker:false,
             drawRectangle: false,
             drawPolyline: false,
@@ -131,22 +182,75 @@
             dragMode:false,
             editMode: false,
             cutPolygon: false,
+            removalMode: false,
         });
 
-        $('#set-koordinat').on('click', function(){
-            mymap.pm.enableDraw('Marker', {
-                snappable: true,
-                snapDistance: 20,
+        //MENYAMBUNGKAN KOORDINAT DESA
+        function makePolygon(data){
+            var c = [];
+            for(i in data) {
+                var x = data[i]['lat'];
+                var y = data[i]['lng'];
+                c.push([x, y]);
+            }
+            return c;
+        }
+    
+        //TRIGGERED KETIKA DESA BERUBAH
+        $('#desaa').on('change', function(){
+            //READ KOORDINAT DESA
+            var myDesa = {!! json_encode($desas->toArray()) !!}
+            console.log(myDesa);
+            myDesa.forEach(element => {
+                if($('#desaa').val() == element['id']){
+                    for(; Object.keys(mymap._layers).length > 1;) {
+                        mymap.removeLayer(mymap._layers[Object.keys(mymap._layers)[1]]);
+                    }
+                    var koor = jQuery.parseJSON(element['batas_desa']);
+                    var id = jQuery.parseJSON(element['id']);
+                    var pathCoords = makePolygon(koor);
+                    pathLine = L.polygon(pathCoords, {
+                        id: element['id'],
+                        color: element['warna_batas'],
+                        fillColor: element['warna_batas'],
+                        fillOpacity: 0.4,
+                        nama: element['nama_desa'],
+                    }).addTo(mymap);
+                }
+
             });
-            
+
+            if($('#desaa').val()==''){
+                mymap.pm.addControls({
+                    editMode: false,
+                    drawMarker: false,
+                    removalMode: false,
+                });
+            }else if($('#desaa').val()!=''){
+                mymap.pm.addControls({
+                    editMode: false,
+                    drawMarker: true,
+                    removalMode: false,
+                });
+            }
         });
 
-        mymap.on('pm:remove', e=> {
-            var id = e.layer.options.id;
-            $('#lat').val("");
-            $('#lng').val("");
+        //SET MARKER BUTTON
+        $('#set-koordinat').on('click', function(){
+            if(status == 0 && $('#desaa').val()!=''){
+                mymap.pm.enableDraw('Marker', {
+                    snappable: true,
+                    snapDistance: 20,
+                    markerStyle: {
+                        draggable: true,
+                        icon: ibadahIcon,
+                    },
+                });
+            }
+
         });
 
+        //HANDLER PM CREATE
         mymap.on('pm:create', e => {
         let shape = e.shape;
         console.log(e);
@@ -158,6 +262,31 @@
                 mymap.pm.disableDraw('Marker', {
                     snappable: true,
                     snapDistance: 20,
+                });
+
+                status = 1;
+
+                mymap.pm.addControls({
+                    editMode: true,
+                    drawMarker: false,
+                    removalMode: true,
+                });
+
+                e.marker.on('pm:update', ({layer}) => {
+                    console.log(layer._latlng);
+                    $('#lat').val(layer._latlng.lat);
+                    $('#lng').val(layer._latlng.lng);
+                });
+
+                e.marker.on('pm:remove', ({layer}) => {
+                    $('#lat').val('');
+                    $('#lng').val('');
+                    mymap.pm.addControls({
+                        editMode: false,
+                        drawMarker: true,
+                        removalMode: false,
+                    });
+                    status = 0;
                 });
             }
         });
@@ -172,7 +301,26 @@
         }).addTo(mymap);
 
         $(document).ready(function(){
-            
+            $('#ibadah').addClass('active');
+            $('#potensi').addClass('active');
         });
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
     </script>
 @endpush

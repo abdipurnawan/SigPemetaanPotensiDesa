@@ -65,6 +65,7 @@
     <script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script>
     <script>
         $(document).ready(function(){
+            $('#desa').addClass('active');
         });
 
         //Soft Delete Desa

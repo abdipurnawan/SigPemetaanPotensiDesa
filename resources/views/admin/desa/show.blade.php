@@ -114,7 +114,7 @@
         }).addTo(mymap);
 
         $(document).ready(function(){
-            
+            $('#desa').addClass('active');
         });
     </script>
 @endpush

@@ -80,6 +80,15 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
     <script>
+        //icon init
+        var wisataIcon = L.icon({
+            iconUrl: '/assets/img/icon_wisata.png',
+
+            iconSize:     [32, 32], 
+            iconAnchor:   [16, 32], 
+            popupAnchor:  [0, -16] 
+        });
+
         var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 9);
         L.Map.include({
             getMarkerById: function (id) {
@@ -95,9 +104,33 @@
             }
         });
 
-        //READ Marker Sekolah
+        //MENYAMBUNGKAN KOORDINAT DESA
+        function makePolygon(data){
+            var c = [];
+            for(i in data) {
+                var x = data[i]['lat'];
+                var y = data[i]['lng'];
+                c.push([x, y]);
+            }
+            return c;
+        }
+
+        //READ KOORDINAT DESA
+        var myDesa = {!! json_encode($wisata->desa) !!}
+        var koor = jQuery.parseJSON(myDesa.batas_desa);
+        var id = jQuery.parseJSON(myDesa.id);
+        var pathCoords = makePolygon(koor);
+        pathLine = L.polygon(pathCoords, {
+            id: myDesa.id,
+            color: myDesa.warna_batas,
+            fillColor: myDesa.warna_batas,
+            fillOpacity: 0.4,
+            nama: myDesa.nama_desa,
+        }).addTo(mymap);
+
+        //READ Marker Wisata
         var wisata = {!! json_encode($wisata) !!}
-        var marker = L.marker([wisata.lat, wisata.lng]).addTo(mymap)
+        var marker = L.marker([wisata.lat, wisata.lng],{icon: wisataIcon}).addTo(mymap)
         .bindPopup(wisata.nama_tempat);
         marker.on('click', function() {
             marker.openPopup();
@@ -113,7 +146,8 @@
         }).addTo(mymap);
 
         $(document).ready(function(){
-            
+            $('#wisata').addClass('active');
+            $('#potensi').addClass('active');
         });
     </script>
 @endpush

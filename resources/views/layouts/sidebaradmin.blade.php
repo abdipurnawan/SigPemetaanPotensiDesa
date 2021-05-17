@@ -27,7 +27,7 @@
     
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item" id="dashboard">
         <a class="nav-link" href="/admin/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -47,17 +47,17 @@
             <span>Desa</span></a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item" id="potensi">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBerita" aria-expanded="true" aria-controls="collapseBerita">
-        <i class="fas fa-fw fa-newspaper"></i>
+        <i class="fas fa-fw fa-landmark"></i>
         <span>Potensi Desa</span>
       </a>
       <div id="collapseBerita" class="collapse" aria-labelledby="headingKI" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Daftar Potensi:</h6>
-          <a class="collapse-item" href="{{ route('admin-sekolah-home') }}" ><i class="fas fa-fw fa-school"></i>   Sekolah</a>
-          <a class="collapse-item" href="{{ route('admin-ibadah-home') }}"><i class="fas fa-fw fa-place-of-worship"></i>  Tempat Ibadah</a>
-          <a class="collapse-item" href="{{ route('admin-wisata-home') }}"><i class="fas fa-fw fa-umbrella-beach"></i>  Tempat Wisata</a>
+          <a class="collapse-item" id="sekolah" href="{{ route('admin-sekolah-home') }}" ><i class="fas fa-fw fa-school"></i>   Sekolah</a>
+          <a class="collapse-item" id="ibadah" href="{{ route('admin-ibadah-home') }}"><i class="fas fa-fw fa-place-of-worship"></i>  Tempat Ibadah</a>
+          <a class="collapse-item" id="wisata" href="{{ route('admin-wisata-home') }}"><i class="fas fa-fw fa-umbrella-beach"></i>  Tempat Wisata</a>
         </div>
       </div>
     </li>
@@ -72,13 +72,13 @@
 
     @if(auth()->guard()->user()->role==1)
     <!-- Nav Item - Tables -->
-    <li class="nav-item" id="desa">
+    <li class="nav-item" id="admin">
         <a class="nav-link" href="{{ route('admin-admin-home') }}">
             <i class="fas fa-users-cog"></i>
             <span>Admin</span></a>
     </li>
     @endif
-    <li class="nav-item" id="desa">
+    <li class="nav-item" id="tentang">
       <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">
           <i class="fas fa-info-circle"></i>
           <span>Tentang</span></a>

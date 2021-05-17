@@ -107,6 +107,15 @@
             }
         });
 
+        //icon init
+        var schoolIcon = L.icon({
+            iconUrl: '/assets/img/icon_sekolah.png',
+
+            iconSize:     [32, 32], 
+            iconAnchor:   [16, 32], 
+            popupAnchor:  [0, -16] 
+        });
+
         $('#set-koordinat').on('click', function(){
             mymap.pm.enableDraw('Marker', {
                 snappable: true,
@@ -115,9 +124,33 @@
             
         });
 
+        //MENYAMBUNGKAN KOORDINAT DESA
+        function makePolygon(data){
+            var c = [];
+            for(i in data) {
+                var x = data[i]['lat'];
+                var y = data[i]['lng'];
+                c.push([x, y]);
+            }
+            return c;
+        }
+        
+        //READ KOORDINAT DESA
+        var myDesa = {!! json_encode($sekolah->desa) !!}
+        var koor = jQuery.parseJSON(myDesa.batas_desa);
+        var id = jQuery.parseJSON(myDesa.id);
+        var pathCoords = makePolygon(koor);
+        pathLine = L.polygon(pathCoords, {
+            id: myDesa.id,
+            color: myDesa.warna_batas,
+            fillColor: myDesa.warna_batas,
+            fillOpacity: 0.4,
+            nama: myDesa.nama_desa,
+        }).addTo(mymap);
+
         //READ Marker Sekolah
         var sekolah = {!! json_encode($sekolah) !!}
-        var marker = L.marker([sekolah.lat, sekolah.lng]).addTo(mymap)
+        var marker = L.marker([sekolah.lat, sekolah.lng],{icon: schoolIcon}).addTo(mymap)
         .bindPopup(sekolah.nama_sekolah);
         marker.on('click', function() {
             marker.openPopup();
@@ -153,7 +186,8 @@
         }).addTo(mymap);
 
         $(document).ready(function(){
-
+            $('#sekolah').addClass('active');
+            $('#potensi').addClass('active');
         });
     </script>
 @endpush

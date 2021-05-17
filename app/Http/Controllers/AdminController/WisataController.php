@@ -24,8 +24,8 @@ class WisataController extends Controller
 
     public function create()
     {
-        $desa = Desa::get();
-        return view('admin.wisata.create', compact('desa'));
+        $desas = Desa::get();
+        return view('admin.wisata.create', compact('desas'));
     }
 
     public function store(Request $request)
@@ -56,9 +56,9 @@ class WisataController extends Controller
     }
 
     public function edit($id){
-        $desa = Desa::get();
+        $desas = Desa::get();
         $wisata = Wisata::find($id);
-        return view('admin.wisata.edit', compact('desa','wisata'));
+        return view('admin.wisata.edit', compact('desas','wisata'));
     }
 
     public function update($id, Request $request)

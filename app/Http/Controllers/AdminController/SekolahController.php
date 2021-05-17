@@ -58,9 +58,9 @@ class SekolahController extends Controller
     }
 
     public function edit($id){
-        $desa = Desa::get();
+        $desas = Desa::get();
         $sekolah = Sekolah::find($id);
-        return view('admin.sekolah.edit', compact('desa','sekolah'));
+        return view('admin.sekolah.edit', compact('desas','sekolah'));
     }
 
     public function update($id, Request $request)

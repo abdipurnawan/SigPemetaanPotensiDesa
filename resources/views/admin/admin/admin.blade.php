@@ -206,7 +206,7 @@
     <script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script>
     <script>
         $(document).ready(function(){
-            
+            $('#admin').addClass('active');
         });
 
         //Soft Delete Admin

@@ -24,8 +24,8 @@ class IbadahController extends Controller
 
     public function create()
     {
-        $desa = Desa::get();
-        return view('admin.ibadah.create', compact('desa'));
+        $desas = Desa::get();
+        return view('admin.ibadah.create', compact('desas'));
     }
 
     public function store(Request $request)
@@ -56,9 +56,9 @@ class IbadahController extends Controller
     }
 
     public function edit($id){
-        $desa = Desa::get();
+        $desas = Desa::get();
         $ibadah = Ibadah::find($id);
-        return view('admin.ibadah.edit', compact('desa','ibadah'));
+        return view('admin.ibadah.edit', compact('desas','ibadah'));
     }
 
     public function update($id, Request $request)
