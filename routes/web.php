@@ -32,6 +32,10 @@ Route::group(['prefix' => 'admin'], function () {
     //HOME
     Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', 'AdminController\DashboardController@dashboard')->name('dashboard');
+    Route::get('/getDetailDesa/{id}', 'HomeController@getDetailDesa')->name('getDetailDesa');
+    Route::get('/getDetailSekolah/{id}', 'HomeController@getDetailSekolah')->name('admin-getDetailSekolah');
+    Route::get('/getDetailIbadah/{id}', 'HomeController@getDetailIbadah')->name('admin-getDetailIbadah');
+    Route::get('/getDetailWisata/{id}', 'HomeController@getDetailWisata')->name('admin-getDetailWisata');
 
     //Auth Route
     Route::get('/login', 'AdminController\AuthController@loginForm')->name('Login Form')->middleware('guest');
