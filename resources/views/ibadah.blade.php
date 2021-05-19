@@ -376,14 +376,6 @@
         });
 
         //icon init
-        var schoolIcon = L.icon({
-            iconUrl: '/assets/img/icon_sekolah.png',
-
-            iconSize:     [32, 32], 
-            iconAnchor:   [16, 32], 
-            popupAnchor:  [0, -16] 
-        });
-
         var ibadahIcon = L.icon({
             iconUrl: '/assets/img/icon_ibadah.png',
 
@@ -391,30 +383,6 @@
             iconAnchor:   [16, 32], 
             popupAnchor:  [0, -16] 
         });
-
-        var wisataIcon = L.icon({
-            iconUrl: '/assets/img/icon_wisata.png',
-
-            iconSize:     [32, 32], 
-            iconAnchor:   [16, 32], 
-            popupAnchor:  [0, -16] 
-        });
-
-        function getDetailSekolah(id){
-            $.ajax({
-                url: "getDetailSekolah/"+id,
-                method: 'get',
-                success: function(result){
-                    $("#nama_sekolah").text(result.sekolah['nama_sekolah']);
-                    $("#jenis_sekolah").text("Jenis Sekolah : " + result.sekolah['jenis']);
-                    $("#desa_sekolah").text("Desa : " + result.sekolah.desa['nama_desa']);
-                    $("#alamat_sekolah").text("Alamat : " + result.sekolah['alamat']);
-                    $("#telepon_sekolah").text("Telepon : " + result.sekolah['telepon']);
-                    $('#image-preview').attr('src', result.sekolah['foto']);
-                    $("#modalSekolah").modal('show');    
-                }
-            });
-        }
 
         function getDetailIbadah(id){
             $.ajax({
@@ -432,43 +400,12 @@
             });
         }
 
-        function getDetailWisata(id){
-            $.ajax({
-                url: "getDetailWisata/"+id,
-                method: 'get',
-                success: function(result){
-                    console.log(result);
-                    $("#nama_tempat_wisata").text(result.wisata['nama_tempat']);
-                    $("#desa_tempat_wisata").text("Desa : " + result.wisata.desa['nama_desa']);
-                    $("#alamat_tempat_wisata").text("Alamat : " + result.wisata['alamat']);
-                    $("#deskripsi_tempat_wisata").text(result.wisata['deskripsi']);
-                    $('#image-preview-wisata').attr('src', result.wisata['foto']);
-                    $("#modalWisata").modal('show');    
-                }
-            });
-        }
         //Marker Loads
-        var sekolahs = {!! json_encode($sekolahs->toArray()) !!}
-        sekolahs.forEach(element => {
-          var marker = L.marker([element.lat, element.lng],{icon: schoolIcon, id: element.id}).addTo(mymap);
-            marker.on('click',function(e){
-                getDetailSekolah(e.target.options.id);
-            });
-        });
-
         var ibadahs = {!! json_encode($ibadahs->toArray()) !!}
         ibadahs.forEach(element => {
           var markerIbadah = L.marker([element.lat, element.lng],{icon: ibadahIcon, id: element.id}).addTo(mymap);
           markerIbadah.on('click', function(e) {
             getDetailIbadah(e.target.options.id);
-          });
-        });
-
-        var wisatas = {!! json_encode($wisatas->toArray()) !!}
-        wisatas.forEach(element => {
-          var markerWisata = L.marker([element.lat, element.lng],{icon: wisataIcon, id: element.id}).addTo(mymap);
-          markerWisata.on('click', function(e) {
-            getDetailWisata(e.target.options.id);
           });
         });
     </script>

@@ -4,7 +4,7 @@
         <!-- Sidebar - Brand -->
         <a style="height:75px !important;" class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/dashboard">
             <div class="sidebar-brand-icon">
-              <img style="height: 45px;" src="{{asset('assets/img/desasidebar.png')}}">
+              <img style="height: 50px;" src="{{asset('assets/img/desasidebar.png')}}">
             </div>
             <div style="font-size: 20px" class="sidebar-brand-text mx-3">SIG Desa</div>
           </a>
@@ -14,7 +14,7 @@
     <hr class="sidebar-divider my-0">
     <div class="sidebar-brand d-flex align-items-center justify-content" href="/admin">
       <div class="sidebar-brand-icon">
-        <img style="height:50px;width:50px;" src="{{asset('assets/img/profile.svg')}}">
+        <img style="height:45px;width:45px;" src="{{asset('assets/img/profile.svg')}}">
       </div>
       <div style="font-size: 10px !important;margin-left:10px;" class="sidebar-brand-text my-3">
         {{auth()->guard()->user()->nama}}

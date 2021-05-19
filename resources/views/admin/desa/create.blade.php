@@ -116,6 +116,7 @@
             cutPolygon: false,
             editMode: false,
             removalMode: false,
+            rotateMode: false,
         });
 
         $('#set-koordinat').on('click', function(){

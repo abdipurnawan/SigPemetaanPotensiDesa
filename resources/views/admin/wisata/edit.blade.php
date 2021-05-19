@@ -228,6 +228,7 @@
             editMode: false,
             cutPolygon: false,
             removalMode: false,
+            rotateMode: false,
         });
 
         //MENYAMBUNGKAN KOORDINAT DESA
@@ -295,7 +296,7 @@
                 marker.openPopup();
             });
             mymap.pm.addControls({
-                editMode: true,
+                editMode: false,
                 drawMarker: false,
                 removalMode: true,
             });
@@ -315,6 +316,10 @@
                     removalMode: false,
                 });
             });
+
+            marker.pm.enable({  
+                allowSelfIntersection: false,  
+            });  
         }
 
         readDesa();

@@ -258,6 +258,7 @@
             editMode: false,
             cutPolygon: false,
             removalMode: false,
+            rotateMode: false,
         });
 
         //MENYAMBUNGKAN KOORDINAT DESA
@@ -343,7 +344,7 @@
                 status = 1;
 
                 mymap.pm.addControls({
-                    editMode: true,
+                    editMode: false,
                     drawMarker: false,
                     removalMode: true,
                 });
@@ -364,6 +365,10 @@
                     });
                     status = 0;
                 });
+
+                e.marker.pm.enable({  
+                    allowSelfIntersection: false,  
+                });  
             }
         });
 

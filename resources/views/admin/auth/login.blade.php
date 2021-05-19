@@ -11,6 +11,8 @@
 
     <title>SIG Potensi Desa | Login</title>
 
+    <link rel="shortcut icon" href="{{asset('assets/img/desasidebar.png')}}" type="image/png">
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link

@@ -14,7 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/desa', 'HomeController@desa')->name('desa');
+Route::get('/sekolah', 'HomeController@sekolah')->name('sekolah');
+Route::get('/tempatibadah', 'HomeController@ibadah')->name('ibadah');
+Route::get('/tempatwisata', 'HomeController@wisata')->name('wisata');
+Route::get('/getDetailDesa/{id}', 'HomeController@getDetailDesa')->name('getDetailDesa');
 Route::get('/getDetailSekolah/{id}', 'HomeController@getDetailSekolah')->name('getDetailSekolah');
+Route::get('/getDetailIbadah/{id}', 'HomeController@getDetailIbadah')->name('getDetailIbadah');
+Route::get('/getDetailWisata/{id}', 'HomeController@getDetailWisata')->name('getDetailWisata');
 
 Route::get('/test', function () {
     return view('layouts.admin');

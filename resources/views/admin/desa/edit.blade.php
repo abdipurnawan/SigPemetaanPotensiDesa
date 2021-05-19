@@ -126,7 +126,23 @@
                 color: batas['warna_batas'],
                 fillColor: batas['warna_batas'],
                 fillOpacity: 0.4,
-            }).addTo(mymap)
+            }).addTo(mymap);
+
+            pathLine.on('pm:update', e => {
+                var id = e.layer.options.id;
+                    var koordinats = e.layer._latlngs;
+                    let koordinat = {};
+                    line = [];
+                    koordinats.forEach(function(latlng){
+                        for(let m = 0; m<latlng.length; m++){
+                            console.log(latlng[m]);
+                            line.push(
+                                latlng[m]
+                            )
+                        }
+                    });
+                $('#batas-desa').val(JSON.stringify(line));
+            });
         }
 
         readDesa();
@@ -143,6 +159,7 @@
             cutPolygon: false,
             editMode: true,
             removalMode: true,
+            rotateMode: false,
         });
 
         $('#set-koordinat').on('click', function(){
