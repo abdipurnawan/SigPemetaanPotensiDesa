@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--====== Title ======-->
-    <title>SIG Potensi Desa | Home</title>
+    <title>SIG Potensi Desa | Tempat Wisata</title>
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{asset('assets/img/desasidebar.png')}}" type="image/png">
@@ -76,7 +76,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
+                            <a class="navbar-brand" href="{{ route('home') }}">
                                 <img src="{{asset('assets/img/desasidebar.png')}}" style="height:65px" alt="Logo">
                                 <span class="navbar-brand ml-2 font-weight-bold">SIG Potensi Desa</span>
                             </a> <!-- Logo -->
