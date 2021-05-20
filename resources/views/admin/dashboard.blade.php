@@ -3,11 +3,39 @@
 @push('css')
     <style>
         #mapid { height: 950px; }
+        .leaflet-div-icon-sekolah{
+            background: rgba(255, 72, 26, 0.438);
+            position: center;
+            display: block;
+            text-align: center;
+            color: black;
+            line-height: 30px;
+        }
+
+        .leaflet-div-icon-ibadah{
+            background: rgba(30, 255, 124, 0.438);
+            position: center;
+            display: block;
+            text-align: center;
+            color: black;
+            line-height: 30px;
+        }
+
+        .leaflet-div-icon-wisata{
+            background: rgba(34, 30, 255, 0.438);
+            position: center;
+            display: block;
+            text-align: center;
+            color: black;
+            line-height: 30px;
+        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+    <link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" rel="stylesheet" />
+    <link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" rel="stylesheet" />
 @endpush
 @section('content')
 <div class="container-fluid">
@@ -241,6 +269,7 @@
 @push('js')
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
   <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
   <script>
     var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 10);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -368,10 +397,50 @@
               }
           });
       }
+
+      //MARKER CLUSTER INIT
+      var sekolahMarkers = L.markerClusterGroup({
+        maxClusterRadius: 60,
+        iconCreateFunction: function(cluster){
+          return L.divIcon({
+            iconSize: [30,30],
+            iconAnchor: [15,30],
+            html: '<div class="leaflet-div-icon-sekolah">' + cluster.getChildCount() + '</div>'  
+          })
+        }
+      });
+      mymap.addLayer(sekolahMarkers);
+
+      var ibadahMarkers = L.markerClusterGroup({
+        maxClusterRadius: 60,
+        iconCreateFunction: function(cluster){
+          return L.divIcon({
+            iconSize: [30,30],
+            iconAnchor: [15,30],
+            html: '<div class="leaflet-div-icon-ibadah">' + cluster.getChildCount() + '</div>'  
+          })
+        }
+      });
+      mymap.addLayer(ibadahMarkers);
+
+      var wisataMarkers = L.markerClusterGroup({
+        maxClusterRadius: 60,
+        iconCreateFunction: function(cluster){
+          return L.divIcon({
+            iconSize: [30,30],
+            iconAnchor: [15,30],
+            html: '<div class="leaflet-div-icon-wisata">' + cluster.getChildCount() + '</div>'  
+          })
+        }
+      });
+      mymap.addLayer(wisataMarkers);
+
+
       //Marker Loads
       var sekolahs = {!! json_encode($sekolahs->toArray()) !!}
       sekolahs.forEach(element => {
-        var marker = L.marker([element.lat, element.lng],{icon: schoolIcon, id: element.id}).addTo(mymap);
+        var marker = L.marker([element.lat, element.lng],{icon: schoolIcon, id: element.id});
+        sekolahMarkers.addLayer(marker);
           marker.on('click',function(e){
               getDetailSekolah(e.target.options.id);
           });
@@ -379,18 +448,20 @@
 
       var ibadahs = {!! json_encode($ibadahs->toArray()) !!}
       ibadahs.forEach(element => {
-        var markerIbadah = L.marker([element.lat, element.lng],{icon: ibadahIcon, id: element.id}).addTo(mymap);
+        var markerIbadah = L.marker([element.lat, element.lng],{icon: ibadahIcon, id: element.id});
         markerIbadah.on('click', function(e) {
           getDetailIbadah(e.target.options.id);
         });
+        ibadahMarkers.addLayer(markerIbadah);
       });
 
       var wisatas = {!! json_encode($wisatas->toArray()) !!}
       wisatas.forEach(element => {
-        var markerWisata = L.marker([element.lat, element.lng],{icon: wisataIcon, id: element.id}).addTo(mymap);
+        var markerWisata = L.marker([element.lat, element.lng],{icon: wisataIcon, id: element.id});
         markerWisata.on('click', function(e) {
           getDetailWisata(e.target.options.id);
         });
+        wisataMarkers.addLayer(markerWisata);
       });
 
       $(document).ready(function(){
