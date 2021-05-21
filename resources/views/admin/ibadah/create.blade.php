@@ -340,6 +340,11 @@
 
                 e.marker.pm.enable({  
                     allowSelfIntersection: false,  
+                });
+                
+                e.marker.on('move', function(e){
+                    $('#lat').val(e.latlng.lat);
+                    $('#lng').val(e.latlng.lng);;
                 });  
             }
         });

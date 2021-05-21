@@ -323,6 +323,11 @@
 
             marker.pm.enable({  
                 allowSelfIntersection: false,  
+            }); 
+
+            marker.on('move', function(e){
+                $('#lat').val(e.latlng.lat);
+                $('#lng').val(e.latlng.lng);;
             });  
         }
 
@@ -382,6 +387,11 @@
                     });
                     status = 0;
                 });
+
+                e.marker.on('move', function(e){
+                    $('#lat').val(e.latlng.lat);
+                    $('#lng').val(e.latlng.lng);;
+                }); 
             }
         });
 
