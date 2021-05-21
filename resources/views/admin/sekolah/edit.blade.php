@@ -292,6 +292,10 @@
                     drawMarker: false,
                     removalMode: false,
                 });
+                for(; Object.keys(mymap._layers).length > 1;) {
+                    mymap.removeLayer(mymap._layers[Object.keys(mymap._layers)[1]]);
+                    status = 0;
+                }
             }else if($('#desaa').val()!=''){
                 mymap.pm.addControls({
                     editMode: true,
