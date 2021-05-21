@@ -165,140 +165,89 @@
         </div>
     </div> --}}
 
-    <!-- Modal Sekolah -->
-    <div class="modal fade left" id="modalSekolah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-        <div class="modal-dialog modal-notify modal-info modal-side modal-top-left" role="document">
-        <!--Content-->
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <p class="heading lead" style="color: black;">Sekolah</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">&times;</span>
-                    </button>
+  <!-- Modal Wisata -->
+  <div class="modal fade left" id="modalWisata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+      <div class="modal-dialog modal-notify modal-info modal-side modal-top-left" role="document">
+      <!--Content-->
+          <div class="modal-content">
+              <!--Header-->
+              <div class="modal-header">
+                  <p class="heading lead" style="color: black;">Tempat Wisata</p>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="white-text">&times;</span>
+                  </button>
+              </div>
+              <!--Body-->
+              <!--Body-->
+              <div class="modal-body" id="loadingWisata">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
-                <!--Body-->
-                <div class="modal-body">
-                    <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_sekolah"></b></p>
-                    <img src="https://mdbootstrap.com/wp-content/uploads/2016/11/admin-dashboard-bootstrap.jpg" id="image-preview" alt=""
-                        class="img-fluid">
-                    <div class="text-left mt-3 ml-1">
-                        <p id="jenis_sekolah"></p>
-                        <p id="desa_sekolah"></p>
-                        <p id="alamat_sekolah"></p>
-                        <p id="telepon_sekolah"></p>
-                    </div>
-                </div>
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                    <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Tutup</a>
-                </div>
-            </div>
-        <!--/.Content-->
-        </div>
-    </div>
-    <!-- Modal Sekolah-->
+              </div>
+              <!--Body-->
+              <div class="modal-body" id="bodyWisata">
+                  <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_tempat_wisata"></b></p>
+                  <img id="image-preview-wisata" alt=""
+                      class="img-fluid">
+                  <div class="text-left mt-3 ml-1">
+                      <p id="desa_tempat_wisata"></p>
+                      <p id="alamat_tempat_wisata"></p>
+                      <p id="deskripsi_tempat_wisata"></p>
+                  </div>
+              </div>
+              <!--Footer-->
+              <div class="modal-footer justify-content-center">
+                  <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Tutup</a>
+              </div>
+          </div>
+      <!--/.Content-->
+      </div>
+  </div>
+  <!-- Modal Wisata-->
 
-    <!-- Modal Ibadah -->
-    <div class="modal fade left" id="modalIbadah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-        <div class="modal-dialog modal-notify modal-info modal-side modal-top-left" role="document">
-        <!--Content-->
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <p class="heading lead" style="color: black;">Tempat Ibadah</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">&times;</span>
-                    </button>
+  <!-- Modal Desa -->
+  <div class="modal fade left" id="modalDesa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+      <div class="modal-dialog modal-notify modal-info modal-side modal-top-left" role="document">
+      <!--Content-->
+          <div class="modal-content">
+              <!--Header-->
+              <div class="modal-header">
+                  <p class="heading lead" style="color: black;">Informasi Desa</p>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="white-text">&times;</span>
+                  </button>
+              </div>
+              <!--Body-->
+              <div class="modal-body" id="loadingDesa">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
-                <!--Body-->
-                <div class="modal-body">
-                    <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_tempat_ibadah"></b></p>
-                    <img src="https://mdbootstrap.com/wp-content/uploads/2016/11/admin-dashboard-bootstrap.jpg" id="image-preview-ibadah" alt=""
-                        class="img-fluid">
-                    <div class="text-left mt-3 ml-1">
-                        <p id="agama_tempat_ibadah"></p>
-                        <p id="desa_tempat_ibadah"></p>
-                        <p id="alamat_tempat_ibadah"></p>
-                    </div>
-                </div>
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                    <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Tutup</a>
-                </div>
-            </div>
-        <!--/.Content-->
-        </div>
-    </div>
-    <!-- Modal Ibadah-->
-
-    <!-- Modal Wisata -->
-    <div class="modal fade left" id="modalWisata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-        <div class="modal-dialog modal-notify modal-info modal-side modal-top-left" role="document">
-        <!--Content-->
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <p class="heading lead" style="color: black;">Tempat Wisata</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">&times;</span>
-                    </button>
-                </div>
-                <!--Body-->
-                <div class="modal-body">
-                    <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_tempat_wisata"></b></p>
-                    <img src="https://mdbootstrap.com/wp-content/uploads/2016/11/admin-dashboard-bootstrap.jpg" id="image-preview-wisata" alt=""
-                        class="img-fluid">
-                    <div class="text-left mt-3 ml-1">
-                        <p id="desa_tempat_wisata"></p>
-                        <p id="alamat_tempat_wisata"></p>
-                        <p id="deskripsi_tempat_wisata"></p>
-                    </div>
-                </div>
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                    <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Tutup</a>
-                </div>
-            </div>
-        <!--/.Content-->
-        </div>
-    </div>
-    <!-- Modal Wisata-->
-
-    <!-- Modal Desa -->
-    <div class="modal fade left" id="modalDesa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-        <div class="modal-dialog modal-notify modal-info modal-side modal-top-left" role="document">
-        <!--Content-->
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <p class="heading lead" style="color: black;">Informasi Desa</p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">&times;</span>
-                    </button>
-                </div>
-                <!--Body-->
-                <div class="modal-body">
-                    <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_desa"></b></p>
-                    <div class="text-left mt-3 ml-1">
-                        <p id="jumlah_sekolah"></p>
-                        <p id="jumlah_ibadah"></p>
-                        <p id="jumlah_wisata"></p>
-                    </div>
-                </div>
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                    <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Tutup</a>
-                </div>
-            </div>
-        <!--/.Content-->
-        </div>
-    </div>
-    <!-- Modal Desa-->
+              </div>
+              <!--Body-->
+              <!--Body-->
+              <div class="modal-body" id="bodyDesa">
+                  <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_desa"></b></p>
+                  <div class="text-left mt-3 ml-1">
+                      <p id="jumlah_sekolah"></p>
+                      <p id="jumlah_ibadah"></p>
+                      <p id="jumlah_wisata"></p>
+                  </div>
+              </div>
+              <!--Footer-->
+              <div class="modal-footer justify-content-center">
+                  <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Tutup</a>
+              </div>
+          </div>
+      <!--/.Content-->
+      </div>
+  </div>
+  <!-- Modal Desa-->
 
     <!--====== jquery js ======-->
     <script src="{{ asset('landing/assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
@@ -354,18 +303,22 @@
         }
 
         function getDetailDesa(id){
-            $.ajax({
-                url: "getDetailDesa/"+id,
-                method: 'get',
-                success: function(result){
-                    console.log(result);
-                    $("#jumlah_sekolah").text("Jumlah Sekolah : " + result.jumlah_sekolah);
-                    $("#jumlah_ibadah").text("Jumlah Tempat Ibadah : " + result.jumlah_ibadah);
-                    $("#jumlah_wisata").text("Jumlah Tempat Wisata : " + result.jumlah_wisata);
-                    $("#nama_desa").text(result.desa['nama_desa']);
-                    $("#modalDesa").modal('show');    
-                }
-            });
+          $("#bodyDesa").hide();
+          $("#loadingDesa").show();
+          $("#modalDesa").modal('show');
+          $.ajax({
+              url: "getDetailDesa/"+id,
+              method: 'get',
+              success: function(result){
+                  console.log(result);
+                  $("#jumlah_sekolah").text("Jumlah Sekolah : " + result.jumlah_sekolah);
+                  $("#jumlah_ibadah").text("Jumlah Tempat Ibadah : " + result.jumlah_ibadah);
+                  $("#jumlah_wisata").text("Jumlah Tempat Wisata : " + result.jumlah_wisata);
+                  $("#nama_desa").text(result.desa['nama_desa']);
+                  $("#loadingDesa").hide();
+                  $("#bodyDesa").show();     
+              }
+          });
         }
 
         var desas = {!! json_encode($desas->toArray()) !!}
@@ -397,19 +350,23 @@
         });
 
         function getDetailWisata(id){
-            $.ajax({
-                url: "getDetailWisata/"+id,
-                method: 'get',
-                success: function(result){
-                    console.log(result);
-                    $("#nama_tempat_wisata").text(result.wisata['nama_tempat']);
-                    $("#desa_tempat_wisata").text("Desa : " + result.wisata.desa['nama_desa']);
-                    $("#alamat_tempat_wisata").text("Alamat : " + result.wisata['alamat']);
-                    $("#deskripsi_tempat_wisata").text(result.wisata['deskripsi']);
-                    $('#image-preview-wisata').attr('src', result.wisata['foto']);
-                    $("#modalWisata").modal('show');    
-                }
-            });
+          $("#bodyWisata").hide();
+          $("#loadingWisata").show();
+          $("#modalWisata").modal('show');
+          $.ajax({
+              url: "getDetailWisata/"+id,
+              method: 'get',
+              success: function(result){
+                  console.log(result);
+                  $("#nama_tempat_wisata").text(result.wisata['nama_tempat']);
+                  $("#desa_tempat_wisata").text("Desa : " + result.wisata.desa['nama_desa']);
+                  $("#alamat_tempat_wisata").text("Alamat : " + result.wisata['alamat']);
+                  $("#deskripsi_tempat_wisata").text(result.wisata['deskripsi']);
+                  $('#image-preview-wisata').attr('src', result.wisata['foto']);
+                  $("#loadingWisata").hide();
+                  $("#bodyWisata").show();    
+              }
+          });
         }
 
         //MARKER CLUSTER INIT

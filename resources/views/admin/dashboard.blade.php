@@ -144,9 +144,17 @@
                   </button>
               </div>
               <!--Body-->
-              <div class="modal-body">
+              <div class="modal-body" id="loadingSekolah">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <!--Body-->
+              <div class="modal-body" id="bodySekolah">
                   <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_sekolah"></b></p>
-                  <img src="https://mdbootstrap.com/wp-content/uploads/2016/11/admin-dashboard-bootstrap.jpg" id="image-preview" alt=""
+                  <img id="image-preview" alt=""
                       class="img-fluid">
                   <div class="text-left mt-3 ml-1">
                       <p id="jenis_sekolah"></p>
@@ -179,9 +187,18 @@
                   </button>
               </div>
               <!--Body-->
-              <div class="modal-body">
+              <div class="modal-body" id="loadingIbadah">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <!--Body-->
+              <!--Body-->
+              <div class="modal-body" id="bodyIbadah">
                   <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_tempat_ibadah"></b></p>
-                  <img src="https://mdbootstrap.com/wp-content/uploads/2016/11/admin-dashboard-bootstrap.jpg" id="image-preview-ibadah" alt=""
+                  <img id="image-preview-ibadah" alt=""
                       class="img-fluid">
                   <div class="text-left mt-3 ml-1">
                       <p id="agama_tempat_ibadah"></p>
@@ -213,9 +230,18 @@
                   </button>
               </div>
               <!--Body-->
-              <div class="modal-body">
+              <!--Body-->
+              <div class="modal-body" id="loadingWisata">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <!--Body-->
+              <div class="modal-body" id="bodyWisata">
                   <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_tempat_wisata"></b></p>
-                  <img src="https://mdbootstrap.com/wp-content/uploads/2016/11/admin-dashboard-bootstrap.jpg" id="image-preview-wisata" alt=""
+                  <img id="image-preview-wisata" alt=""
                       class="img-fluid">
                   <div class="text-left mt-3 ml-1">
                       <p id="desa_tempat_wisata"></p>
@@ -247,7 +273,16 @@
                   </button>
               </div>
               <!--Body-->
-              <div class="modal-body">
+              <div class="modal-body" id="loadingDesa">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <!--Body-->
+              <!--Body-->
+              <div class="modal-body" id="bodyDesa">
                   <p class="h5 mb-4 text-center" style="color:black; bold"><b id="nama_desa"></b></p>
                   <div class="text-left mt-3 ml-1">
                       <p id="jumlah_sekolah"></p>
@@ -292,6 +327,9 @@
       }
 
       function getDetailDesa(id){
+          $("#bodyDesa").hide();
+          $("#loadingDesa").show();
+          $("#modalDesa").modal('show');
           $.ajax({
               url: "getDetailDesa/"+id,
               method: 'get',
@@ -301,7 +339,8 @@
                   $("#jumlah_ibadah").text("Jumlah Tempat Ibadah : " + result.jumlah_ibadah);
                   $("#jumlah_wisata").text("Jumlah Tempat Wisata : " + result.jumlah_wisata);
                   $("#nama_desa").text(result.desa['nama_desa']);
-                  $("#modalDesa").modal('show');    
+                  $("#loadingDesa").hide();
+                  $("#bodyDesa").show();     
               }
           });
       }
@@ -351,6 +390,9 @@
       });
 
       function getDetailSekolah(id){
+          $("#bodySekolah").hide();
+          $("#loadingSekolah").show();
+          $("#modalSekolah").modal('show');
           $.ajax({
               url: "getDetailSekolah/"+id,
               method: 'get',
@@ -361,12 +403,16 @@
                   $("#alamat_sekolah").text("Alamat : " + result.sekolah['alamat']);
                   $("#telepon_sekolah").text("Telepon : " + result.sekolah['telepon']);
                   $('#image-preview').attr('src', result.sekolah['foto']);
-                  $("#modalSekolah").modal('show');    
+                  $("#loadingSekolah").hide();
+                  $("#bodySekolah").show();   
               }
           });
       }
 
       function getDetailIbadah(id){
+          $("#bodyIbadah").hide();
+          $("#loadingIbadah").show();
+          $("#modalIbadah").modal('show');
           $.ajax({
               url: "getDetailIbadah/"+id,
               method: 'get',
@@ -377,12 +423,16 @@
                   $("#desa_tempat_ibadah").text("Desa : " + result.ibadah.desa['nama_desa']);
                   $("#alamat_tempat_ibadah").text("Alamat : " + result.ibadah['alamat']);
                   $('#image-preview-ibadah').attr('src', result.ibadah['foto']);
-                  $("#modalIbadah").modal('show');    
+                  $("#loadingIbadah").hide();
+                  $("#bodyIbadah").show();     
               }
           });
       }
 
       function getDetailWisata(id){
+          $("#bodyWisata").hide();
+          $("#loadingWisata").show();
+          $("#modalWisata").modal('show');
           $.ajax({
               url: "getDetailWisata/"+id,
               method: 'get',
@@ -393,7 +443,8 @@
                   $("#alamat_tempat_wisata").text("Alamat : " + result.wisata['alamat']);
                   $("#deskripsi_tempat_wisata").text(result.wisata['deskripsi']);
                   $('#image-preview-wisata').attr('src', result.wisata['foto']);
-                  $("#modalWisata").modal('show');    
+                  $("#loadingWisata").hide();
+                  $("#bodyWisata").show();    
               }
           });
       }
