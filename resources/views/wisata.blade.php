@@ -40,13 +40,12 @@
     <style>
         #mapid { height: 100vh; }
         p { margin:0 }
-        .leaflet-div-icon-wisata{
-            background: rgba(34, 30, 255, 0.438);
-            position: center;
-            display: block;
-            text-align: center;
-            color: black;
-            line-height: 30px;
+        .marker-cluster-wisata {
+            background-color: rgba(218, 94, 94, 0.6);
+            color: white;
+        }
+        .marker-cluster-wisata div {
+            background-color: rgba(226, 36, 36, 0.6);
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
@@ -373,11 +372,10 @@
         var wisataMarkers = L.markerClusterGroup({
             maxClusterRadius: 60,
             iconCreateFunction: function(cluster){
-            return L.divIcon({
-                iconSize: [30,30],
-                iconAnchor: [15,30],
-                html: '<div class="leaflet-div-icon-wisata">' + cluster.getChildCount() + '</div>'  
-            })
+                return new L.DivIcon({ 
+                    html: '<div><span>' + cluster.getChildCount() + '</span></div>', 
+                    className: 'marker-cluster marker-cluster-wisata', iconSize: new L.Point(40, 40) 
+                });
             }
         });
         mymap.addLayer(wisataMarkers);
