@@ -4,9 +4,10 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
-use App\models\Desa;
+use App\Desa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class DesaController extends Controller
 {
@@ -72,7 +73,7 @@ class DesaController extends Controller
     public function destroy($id){
         $desa = Desa::find($id);
         $desa->delete();
-        return redirect('admin/desa')->with('statusInput', 'Desa Berhasil Dihapus');
+        return redirect('admin/ibadah')->with('statusInput', 'Tempat Ibadah Berhasil Dihapus');
     }
 
     public function show($id){
