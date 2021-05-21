@@ -51,9 +51,9 @@ class HomeController extends Controller
 
     public function getDetailDesa($id){
         $desa = Desa::find($id);
-        $jumlah_sekolah = Sekolah::where('id', $id)->count();
-        $jumlah_ibadah = Ibadah::where('id', $id)->count();
-        $jumlah_wisata = Wisata::where('id', $id)->count();
+        $jumlah_sekolah = Sekolah::where('id_desa', $id)->count();
+        $jumlah_ibadah = Ibadah::where('id_desa', $id)->count();
+        $jumlah_wisata = Wisata::where('id_desa', $id)->count();
         return response()->json(['success' => 'Berhasil', 'desa' => $desa, 'jumlah_sekolah' => $jumlah_sekolah, 'jumlah_ibadah' => $jumlah_ibadah, 'jumlah_wisata' => $jumlah_wisata]);
     }
 
