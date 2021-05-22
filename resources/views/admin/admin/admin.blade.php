@@ -110,7 +110,7 @@
                             <th width="35">No</th>
                             <th>Nama Admin</th>
                             <th>Username</th>
-                            <th width="100">Role</th>
+                            <th width="100">Super Admin</th>
                             <th width="50">Action</th>
                         </tr>
                     </thead>
