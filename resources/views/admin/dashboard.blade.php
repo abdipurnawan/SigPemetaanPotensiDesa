@@ -36,6 +36,43 @@
 @section('content')
 <div class="container-fluid">
 
+    @if (session()->has('statusInput'))
+      <div class="row">
+        <div class="col-sm-12 alert alert-success alert-dismissible fade show" role="alert">
+            {{session()->get('statusInput')}}
+            <button type="button" class="close" data-dismiss="alert"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+      </div>
+    @endif  
+    @if (session()->has('error'))
+    <div class="row">
+      <div class="col-sm-12 alert alert-danger alert-dismissible fade show" role="alert">
+          {{session()->get('error')}}
+          <button type="button" class="close" data-dismiss="alert"
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+    </div>
+  @endif
+  @if (count($errors)>0)
+    <div class="row">
+        <div class="col-sm-12 alert alert-danger alert-dismissible fade show" role="alert">
+            <ul>
+              @foreach ($errors->all() as $item)
+                  <li>{{$item}}</li>
+              @endforeach
+            </ul>
+            <button type="button" class="close" data-dismiss="alert"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+      </div>
+    @endif  
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>

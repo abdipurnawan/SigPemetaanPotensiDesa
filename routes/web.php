@@ -41,6 +41,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', 'AdminController\AuthController@loginForm')->name('Login Form')->middleware('guest');
     Route::post('/login', 'AdminController\AuthController@login')->name('Login');
     Route::get('/logout', 'AdminController\AuthController@logout')->name('Logout');
+    Route::post('/editprofile/{id}', 'AdminController\AuthController@editprofile')->name('Edit Profile');
+    Route::post('/editpassword/{id}', 'AdminController\AuthController@editpassword')->name('Edit Password');
 
     //Admin Route
     Route::get('/admins', 'AdminController\AdminController@index')->name('admin-admin-home');

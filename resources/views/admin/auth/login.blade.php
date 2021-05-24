@@ -45,6 +45,17 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
+                                        @if (session()->has('error'))
+                                            <div class="row">
+                                                <div class="col-sm-12 alert alert-danger alert-dismissible fade show" role="alert">
+                                                    {{session()->get('error')}}
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @endif 
                                     </div>
                                     <form class="user" action="{{ route('Login') }}" method="post" id="form">
                                         @csrf
