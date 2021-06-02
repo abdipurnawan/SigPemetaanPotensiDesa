@@ -34,7 +34,7 @@ class AuthController extends Controller
         if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])){
             return redirect()->route('dashboard');
         } else {
-            return redirect()->back()->with('error', 'Email atau Password Anda Salah');
+            return redirect()->back()->with('error', 'Username atau Password Anda Salah');
         }
     }
 
