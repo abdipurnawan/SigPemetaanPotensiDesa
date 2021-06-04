@@ -302,6 +302,7 @@
         function readMarker(){
             //READ Marker Sekolah
             var ibadah = {!! json_encode($ibadah) !!}
+            mymap.setView([ibadah.lat, ibadah.lng], 13);
             var marker = L.marker([ibadah.lat, ibadah.lng],{icon: ibadahIcon}).addTo(mymap)
             .bindPopup(ibadah.nama_tempat_ibadah);
             marker.on('click', function() {

@@ -2,7 +2,7 @@
 @section('title', 'Dashboard Admin')
 @push('css')
     <style>
-        #mapid { height: 950px; }
+        #mapid { height: 600px; }
         .marker-cluster-wisata {
             background-color: rgba(218, 94, 94, 0.6);
             color: white;
@@ -523,7 +523,8 @@
         var marker = L.marker([element.lat, element.lng],{icon: schoolIcon, id: element.id});
         sekolahMarkers.addLayer(marker);
           marker.on('click',function(e){
-              getDetailSekolah(e.target.options.id);
+            mymap.setView([e.latlng.lat, e.latlng.lng], 15);
+            getDetailSekolah(e.target.options.id);
           });
       });
 
@@ -531,6 +532,7 @@
       ibadahs.forEach(element => {
         var markerIbadah = L.marker([element.lat, element.lng],{icon: ibadahIcon, id: element.id});
         markerIbadah.on('click', function(e) {
+          mymap.setView([e.latlng.lat, e.latlng.lng], 15);
           getDetailIbadah(e.target.options.id);
         });
         ibadahMarkers.addLayer(markerIbadah);
@@ -540,6 +542,7 @@
       wisatas.forEach(element => {
         var markerWisata = L.marker([element.lat, element.lng],{icon: wisataIcon, id: element.id});
         markerWisata.on('click', function(e) {
+          mymap.setView([e.latlng.lat, e.latlng.lng], 15);
           getDetailWisata(e.target.options.id);
         });
         wisataMarkers.addLayer(markerWisata);

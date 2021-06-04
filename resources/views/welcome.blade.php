@@ -119,7 +119,7 @@
                                     <li class="nav-item"><a class="page-scroll" href="{{ route('sekolah') }}">Sekolah</a></li>
                                     <li class="nav-item"><a class="page-scroll" href="{{ route('ibadah') }}">Tempat Ibadah</a></li>
                                     <li class="nav-item"><a class="page-scroll" href="{{ route('wisata') }}">Tempat Wisata</a></li>
-                                    <li class="nav-item"><a class="page-scroll" href="{{ route('Login Form') }}">Sign In</a></li>
+                                    <li class="nav-item"><a class="page-scroll" style="color: DeepSkyBlue" href="{{ route('Login Form') }}">Sign In</a></li>
                                 </ul>
                             </div> <!-- navbar collapse -->
                         </nav> <!-- navbar -->
@@ -565,6 +565,7 @@
           var marker = L.marker([element.lat, element.lng],{icon: schoolIcon, id: element.id});
           sekolahMarkers.addLayer(marker);
             marker.on('click',function(e){
+                mymap.setView([e.latlng.lat, e.latlng.lng], 15);
                 getDetailSekolah(e.target.options.id);
             });
         });
@@ -574,6 +575,7 @@
           var markerIbadah = L.marker([element.lat, element.lng],{icon: ibadahIcon, id: element.id});
           ibadahMarkers.addLayer(markerIbadah);
           markerIbadah.on('click', function(e) {
+            mymap.setView([e.latlng.lat, e.latlng.lng], 15);
             getDetailIbadah(e.target.options.id);
           });
         });
@@ -583,6 +585,7 @@
           var markerWisata = L.marker([element.lat, element.lng],{icon: wisataIcon, id: element.id});
           wisataMarkers.addLayer(markerWisata);
           markerWisata.on('click', function(e) {
+            mymap.setView([e.latlng.lat, e.latlng.lng], 15);
             getDetailWisata(e.target.options.id);
           });
         });

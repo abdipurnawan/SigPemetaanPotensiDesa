@@ -135,6 +135,7 @@
 
         //READ Marker Wisata
         var wisata = {!! json_encode($wisata) !!}
+        mymap.setView([wisata.lat, wisata.lng], 13);
         var marker = L.marker([wisata.lat, wisata.lng],{icon: wisataIcon}).addTo(mymap)
         .bindPopup(wisata.nama_tempat);
         marker.on('click', function() {

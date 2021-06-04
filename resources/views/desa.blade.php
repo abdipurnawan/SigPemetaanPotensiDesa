@@ -93,7 +93,7 @@
                                     <li class="nav-item"><a class="page-scroll" href="{{ route('sekolah') }}">Sekolah</a></li>
                                     <li class="nav-item"><a class="page-scroll" href="{{ route('ibadah') }}">Tempat Ibadah</a></li>
                                     <li class="nav-item"><a class="page-scroll" href="{{ route('wisata') }}">Tempat Wisata</a></li>
-                                    <li class="nav-item"><a class="page-scroll" href="{{ route('Login Form') }}">Sign In</a></li>
+                                    <li class="nav-item"><a class="page-scroll" style="color: DeepSkyBlue" href="{{ route('Login Form') }}">Sign In</a></li>
                                 </ul>
                             </div> <!-- navbar collapse -->
                         </nav> <!-- navbar -->

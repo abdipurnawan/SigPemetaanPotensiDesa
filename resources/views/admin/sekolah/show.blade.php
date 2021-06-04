@@ -155,6 +155,7 @@
 
         //READ Marker Sekolah
         var sekolah = {!! json_encode($sekolah) !!}
+        mymap.setView([sekolah.lat, sekolah.lng], 13);
         var marker = L.marker([sekolah.lat, sekolah.lng],{icon: schoolIcon}).addTo(mymap)
         .bindPopup(sekolah.nama_sekolah);
         marker.on('click', function() {
